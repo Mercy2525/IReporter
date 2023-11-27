@@ -14,7 +14,7 @@ function Landing() {
             <div className='flex w-3/4 justify-around p-1 font-semibold '>
                 <Link className='inline-block border rounded-lg  hover:border-gray-200 hover:bg-color-tertiary py-1 px-3' to='/home'>Home</Link>
                 <Link className='inline-block border rounded-lg  hover:border-gray-200 hover:bg-color-tertiary  py-1 px-3'to='/home'>Home</Link>
-                <Link className='inline-block border rounded-lg  hover:border-gray-200 hover:bg-color-tertiary  py-1 px-3' to='/home'>Home</Link>
+                
                 <Link className='inline-block border rounded-lg  hover:border-gray-200 hover:bg-color-tertiary  py-1 px-3' to='/home'>About</Link>
                 <Link className='inline-block border rounded-lg  hover:border-gray-200 hover:bg-color-tertiary  py-1 px-3' to='/home'>LogIn</Link>
                 
