@@ -1,9 +1,7 @@
-
 import {Route, Routes} from 'react-router-dom';
 import Redflag from './Components/Redflag.js';
-import Home from "./Components/Home";
 import Navbar from "./Components/Navbar.js";
-
+import Home from '../Components/Home.js';
 
 
 function App() {
