@@ -39,9 +39,9 @@ function Footer() {
 
   return (
     
-    <footer className="bg-color-gray w-full ">
+    <footer className="bg-color-tertiary w-full ">
 
-        <div className='mt-3 rounded-lg '>
+        <div className=' rounded-lg '>
 
             <div className=' m-auto justify-evenly flex flex-row flex-wrap  '>  
                 {FooterDetails.map((footer,idx)=>(
