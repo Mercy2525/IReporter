@@ -39,16 +39,16 @@ function Footer() {
 
   return (
     
-    <footer className="bg-color-gray py-4 w-full sm:fixed sm:bottom-0  ">
+    <footer className="bg-color-gray w-full ">
 
-        <div className='mt-2 rounded-lg'>
+        <div className='mt-3 rounded-lg '>
 
             <div className=' m-auto justify-evenly flex flex-row flex-wrap  '>  
                 {FooterDetails.map((footer,idx)=>(
-                    <div key={idx} className=" max-w-sm my-8 overflow-hidden p-2  ">
+                    <div key={idx} className=" max-w-sm overflow-hidden p-2  ">
 
                         <div className='text-2xl flex  items-center '>
-                            <p className='rounded-lg overflow-hidden ml-4 border border-color-tertiary p-2'> {footer.title} </p>
+                            <p className='rounded-lg overflow-hidden ml-4 p-2'> {footer.title} </p>
                         </div>
 
                         <div className="px-6 text-xl py-4 text-white leading-8 ">
