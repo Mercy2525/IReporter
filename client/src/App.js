@@ -10,8 +10,9 @@ function App() {
       <Routes>
 
         <Route element={<Landing/>}>
-          <Route element={<Home/>} path="/home"/>
           <Route element={<Home/>} path="/"/>
+          <Route element={<Home/>} path="/home"/>
+          
 
         </Route>
 
