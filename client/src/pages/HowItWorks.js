@@ -3,7 +3,7 @@ import Todo from '../assets/Todo.gif'
 import Law from '../assets/Law.gif'
 
 function HowItWorks() {
-
+    //a list  of how it works
     const itWorks=[
         {
             image:ContactUs,
@@ -24,9 +24,9 @@ function HowItWorks() {
     ]
   return (
     <div className='bg-color-primary '>
-        <div className="font-bold text-5xl text-center p-3">How It Works</div>
+        <div className="font-bold text-5xl text-center text-color-blue2 p-3">How It Works</div>
 
-        <div className='flex flex-row flex-wrap '> 
+        <div className='flex flex-row flex-wrap mb-4'> 
 
         {itWorks.map((works,idx)=>(
         <div key={idx} className="max-w-sm rounded-lg  mt-4 overflow-hidden shadow-lg w-11/12 m-auto  ">
@@ -37,9 +37,9 @@ function HowItWorks() {
                 <p className="text-2xl font-light ">{works.text2}</p>
             </div>
             <div className="px-6 pt-4 pb-2">
-                <span className="inline-block bg-color-blue rounded-full px-3 py-1 text-sm font-semibold mr-2 mb-2">#Corruption</span>
-                <span className="inline-block  bg-color-blue rounded-full px-3 py-1 text-sm font-semibold mr-2 mb-2">#Intervention</span>
-                <span className="inline-block  bg-color- rounded-full px-3 py-1 text-sm font-semibold mr-2 mb-2">#Justice</span>
+                <span className="inline-block bg-color-white hover:bg-black hover:text-color-white rounded-full px-3 py-1 text-sm font-semibold mr-2 mb-2">#Corruption</span>
+                <span className="inline-block hover:bg-black hover:text-color-white  bg-color-white rounded-full px-3 py-1 text-sm font-semibold mr-2 mb-2">#Intervention</span>
+                <span className="inline-block hover:bg-black hover:text-color-white bg-color-white rounded-full px-3 py-1 text-sm font-semibold mr-2 mb-2">#Justice</span>
             </div>
         </div>
     ))}
