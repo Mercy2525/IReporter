@@ -14,7 +14,7 @@ function Home() {
                   
               </div>
 
-              <div className='flex h-50 flex-wrap flex-col  text-center font-semibold leading-normal justify-center text-6xl '>
+              <div className='flex h-50 flex-wrap flex-col  text-center font-semibold leading-normal justify-center text-6xl  '>
                 <h1>Report To Help <br/> Fight Corruption </h1>
               </div>
 

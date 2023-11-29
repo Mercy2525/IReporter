@@ -47,7 +47,7 @@ function Footer() {
                 {FooterDetails.map((footer,idx)=>(
                     <div key={idx} className=" max-w-sm overflow-hidden p-2  ">
 
-                        <div className='text-2xl flex  items-center '>
+                        <div className='text-2xl flex text-color-blue  items-center '>
                             <p className='rounded-lg overflow-hidden ml-4 p-2'> {footer.title} </p>
                         </div>
 
