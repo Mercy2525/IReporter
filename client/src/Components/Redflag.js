@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './Redflag.css';
+import '../styles/Redflag.css'
 
 const RedFlag = () => {
   const [redFlags, setRedFlags] = useState([]);
