@@ -3,7 +3,7 @@ import Todo from '../assets/Todo.gif'
 import Law from '../assets/Law.gif'
 
 function HowItWorks() {
-
+    //a list  of how it works
     const itWorks=[
         {
             image:ContactUs,
