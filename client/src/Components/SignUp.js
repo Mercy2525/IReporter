@@ -7,6 +7,7 @@ import { useSnackbar } from 'notistack';
 
 
 function SignUp() {
+    //trial
     const [refreshPage, setRefreshPage] = useState(false)
     const navigate = useNavigate();
     const {enqueueSnackbar} = useSnackbar();
