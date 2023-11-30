@@ -23,7 +23,7 @@ function Login({ updateUser }) {
       .required('This field is required')
       .min(6, 'Password must be at least 6 characters'),
   });
-
+  //
   return (
     <>
       <div className='flex flex-col items-center justify-center p-20'>
