@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
 import {Link} from 'react-router-dom'
 
-function Login({handleLogIn}) {
+function Login({ updateUser }) {
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
 
@@ -17,8 +17,8 @@ function Login({handleLogIn}) {
   YupPassword(Yup);
   const errorMessagesSchema = Yup.object().shape({
     email: Yup.string()
-    .email('Invalid email')
-    .required('This field is required'),
+    .email('Invalid email').
+    required('This field is required'),
     password: Yup.string()
       .required('This field is required')
       .min(6, 'Password must be at least 6 characters'),
@@ -44,10 +44,8 @@ function Login({handleLogIn}) {
             })
               .then((res) => {
                 if (res.status === 201) {
-                  res.json()
-                  .then(enqueueSnackbar('Log in successful!', { variant: 'success' }))
-                  .then(navigate('/redflag'))
-                  .then(values=>handleLogIn(values))
+                  enqueueSnackbar('Log in successful!', { variant: 'success' });
+                  navigate('/redflag');
                 } else {
                   return res.json().then((data) => {
                     enqueueSnackbar(data.message || 'Invalid email or password', { variant: 'error' });
