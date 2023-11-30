@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
 
 function Login({ updateUser }) {
+    //
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
 
