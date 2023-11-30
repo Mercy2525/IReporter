@@ -2,14 +2,11 @@ import {Formik, Form, Field} from 'formik'
 import * as Yup from 'yup'
 import YupPassword from 'yup-password'
 import Button from './Button';
-
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
 import { useSnackbar } from 'notistack';
 
 
 function SignUp() {
-    const [refreshPage, setRefreshPage] = useState(false)
     const navigate = useNavigate();
     const {enqueueSnackbar} = useSnackbar();
 
@@ -63,7 +60,6 @@ function SignUp() {
                             console.log(res.status);
                             if (res.status === 201){
                                 navigate('/login');
-                                setRefreshPage(!refreshPage);
                                 enqueueSnackbar("Signed Up Successful", {variant: "success"})
                             }                           
                         })
