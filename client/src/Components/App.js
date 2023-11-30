@@ -4,11 +4,12 @@ import Navbar from "../pages/Navbar.js";
 import Home from '../pages/Home.js';
 import SignUp from './SignUp';
 import Login from './Login';
-import Landing from './Landing';
 import { useState, useEffect } from 'react';
+import AdminLogin from './AdminLogin.js';
 
 
 function App() {
+  //
   const [user, setUser] = useState({});
 
   useEffect(() => {
@@ -32,6 +33,7 @@ function App() {
           <Route path="/redflag" element={<Redflag />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/adminLogin" element={<AdminLogin/>}/>
 
         </Route>
       </Routes>

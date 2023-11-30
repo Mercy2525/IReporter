@@ -11,7 +11,7 @@ function Button({content, className, type='button', onClick}) {
                 border
                 border-platinum 
                 bg-rich-black 
-                hover:bg-platinum 
+                hover:bg-color-tertiary 
                 hover:text-rich-black 
                 rounded-lg
                 ${className ? className: ''}`}
