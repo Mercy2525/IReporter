@@ -73,6 +73,7 @@ const RedFlag = () => {
       });
   };
 
+  // 
   return (
     <div>
       <h2>Red-Flag Records</h2>
