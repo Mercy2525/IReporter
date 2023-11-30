@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import './Redflag.css';
+import { useParams } from 'react-router-dom';
 
 const RedFlag = () => {
+  const {id} = useParams
   const [redFlags, setRedFlags] = useState([]);
   const [loading, setLoading] = useState(true);
   const [redFlagData, setRedFlagData] = useState({
@@ -29,7 +31,7 @@ const RedFlag = () => {
         console.error('Error fetching data:', error);
         setLoading(false);
       });
-  }, []);
+  }, [id]);
 
   const handleInputChange = (e) => {
     setRedFlagData({
@@ -41,8 +43,8 @@ const RedFlag = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-  
-    fetch('https://ireporter-backend.onrender.com/redflags', {
+    const userId = 1;
+    fetch('http://127.0.0.1:5555/redflags/user/' + userId, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -75,21 +77,42 @@ const RedFlag = () => {
     <div>
       <h2>Red-Flag Records</h2>
       <div>
-        {loading ? (
-          <p>Loading...</p>
-        ) : (
-          redFlags.map((redFlag) => (
-            <div key={redFlag.id}>
-              <h3>Title: {redFlag.status}</h3>
-              <p>Description: </p>
-              <p>Location: {redFlag.location}</p>
-              <p>Status: {redFlag.status}</p>
-              <p>Created at: {redFlag.created_at}</p>
+  {loading ? (
+    <p>Loading...</p>
+  ) : (
+    <table>
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Description</th>
+          <th>Location</th>
+          <th>Status</th>
+          <th>Created at</th>
+          <th>Image</th>
+        </tr>
+      </thead>
+      <tbody>
+        {redFlags.map((redFlag) => (
+          <tr key={redFlag.id}>
+            <td>{redFlag.status}</td>
+            <td>Description content goes here...</td>
+            <td>{redFlag.location}</td>
+            <td>{redFlag.status}</td>
+            <td>{redFlag.created_at}</td>
+            <td>
               <img src={redFlag.image} alt="" />
-            </div>
-          ))
-        )}
-      </div>
+            </td>
+            <td>
+              <button >Edit</button>
+              <button >Delete</button>
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  )}
+</div>
+
       <p>
         If you have witnessed an incident linked to corruption, please use this form to report the details.
         Your contribution helps in promoting transparency and fighting against corruption in our community.
