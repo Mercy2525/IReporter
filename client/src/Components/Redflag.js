@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import '../styles/Redflag.css'
 
-const RedFlag = () => {
+const RedFlag = ({user}) => {
+  console.log(user);
   const [redFlags, setRedFlags] = useState([]);
   const [loading, setLoading] = useState(true);
   const [redFlagData, setRedFlagData] = useState({
