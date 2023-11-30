@@ -11,7 +11,9 @@ module.exports = {
         "color-tertiary": "#244873",
         "color-white": "#FFFFFF",
         "color-blue" : "#BEE9F8",
-        "color-blue2": "#306E9C"
+        "color-blue2": "#306E9C",
+        "color-red": "#ce2d4f"
+
       },
       backgroundImage: {
         'hero-pattern': "linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), url('../src/assets/LifeCity.svg')",
