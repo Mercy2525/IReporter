@@ -3,7 +3,7 @@ import '../styles/Redflag.css'
 import { useParams } from 'react-router-dom';
 
 const RedFlag = ({user}) => {
-  const {id} = useParams
+  console.log(user);
   const [redFlags, setRedFlags] = useState([]);
   const [loading, setLoading] = useState(true);
   const [redFlagData, setRedFlagData] = useState({
@@ -32,7 +32,7 @@ const RedFlag = ({user}) => {
         console.error('Error fetching data:', error);
         setLoading(false);
       });
-  }, [id]);
+  }, []);
 
   const handleInputChange = (e) => {
     setRedFlagData({
