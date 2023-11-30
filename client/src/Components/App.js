@@ -13,7 +13,7 @@ function App() {
   const [user, setUser] = useState({});
 
   useEffect(() => {
-    fetch('/session')
+    fetch('https://ireporter-backend.onrender.com/session_user')
       .then((response) => response.json())
       .then((data) => {
         setUser(data);
@@ -30,7 +30,7 @@ function App() {
         <Route element={<Navbar user={user}/>}>
           <Route element={<Home/>} path="/"/>
           <Route element={<Home/>} path="/home"/>
-          <Route path="/redflag" element={<Redflag />} />
+          <Route path="/redflag" element={<Redflag user={user}/>} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/login" element={<Login />} />
           <Route path="/adminLogin" element={<AdminLogin/>}/>

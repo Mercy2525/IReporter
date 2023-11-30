@@ -45,7 +45,7 @@ function Login({ updateUser }) {
               .then((res) => {
                 if (res.status === 201) {
                   enqueueSnackbar('Log in successful!', { variant: 'success' });
-                  navigate('/home');
+                  navigate('/redflag');
                 } else {
                   return res.json().then((data) => {
                     enqueueSnackbar(data.message || 'Invalid email or password', { variant: 'error' });
