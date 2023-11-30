@@ -77,7 +77,7 @@ const RedFlag = ({user}) => {
       });
   };
 
-  // 
+   
   return (
     <div id="redflag-container">
   <h2>Red-Flag Records</h2>
