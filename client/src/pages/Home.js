@@ -1,5 +1,5 @@
 import React from 'react'
-import corruption from '../assets/corruption.webp'
+import corruption from '../assets/corruption.jpg'
 import no_corruption from '../assets/no_corruption.webp'
 import HowItWorks from './HowItWorks'
 
