@@ -4,20 +4,21 @@ import YupPassword from 'yup-password';
 import Button from './Button';
 import { useNavigate } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
-import {Link} from 'react-router-dom'
 
-function Login({handleLogIn}) {
+function Login({ updateUser }) {
+    //
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
 
   function handleSignUpClick() {
-    navigate('/signup');
+    navigate('/login');
   }
 
   YupPassword(Yup);
   const errorMessagesSchema = Yup.object().shape({
-    email: Yup.string()
-    .email('Invalid email')
+    username: Yup.string()
+    .min(2, "Username too short!")
+    .max(50, "Username too long")
     .required('This field is required'),
     password: Yup.string()
       .required('This field is required')
@@ -27,15 +28,15 @@ function Login({handleLogIn}) {
   return (
     <>
       <div className='flex flex-col items-center justify-center p-20'>
-        <h1 className='font-semiBold text-color-blue2 text-2xl mb-8'>User Log In</h1>
+        <h1 className='font-semiBold text-color-blue2 text-2xl mb-8'> Admin Log In</h1>
         <Formik
           initialValues={{
-            email: '',
+            username: '',
             password: '',
           }}
           validationSchema={errorMessagesSchema}
           onSubmit={(values, e) => {
-            fetch('https://ireporter-backend.onrender.com/login_user', {
+            fetch('https://ireporter-backend.onrender.com/login_admin', {
               method: "POST",
               headers: {
                 'Content-Type': 'application/json',
@@ -44,14 +45,12 @@ function Login({handleLogIn}) {
             })
               .then((res) => {
                 if (res.status === 201) {
-                  res.json()
-                  .then(enqueueSnackbar('Log in successful!', { variant: 'success' }))
-                  .then(navigate('/redflag'))
-                  .then(values=>handleLogIn(values))
+                  enqueueSnackbar('Admin Logged in successful!', { variant: 'success' });
+                  navigate('/home');
                 } else {
                   return res.json().then((data) => {
-                    enqueueSnackbar(data.message || 'Invalid email or password', { variant: 'error' });
-                    console.log(data); 
+                    enqueueSnackbar(data.message || 'Invalid username or password', { variant: 'error' });
+                    console.log(data); // Log the response for debugging
                   });
                 }
               })
@@ -66,11 +65,11 @@ function Login({handleLogIn}) {
         >
           {({ errors, touched }) => (
             <Form className='flex flex-col content-center mb-1 justify-center bg-color-blue   max-w-xs w-full'>
-              <label className='m-2 font-bold' htmlFor='email'>
-                Email address
+              <label className='m-2 font-bold' htmlFor='username'>
+                Username
               </label>
-              <Field type='email' name='email' id='email' className='text-rich-black px-2 rounded' />
-              {touched.email && errors.email && <div className='text-color-red'>{errors.email}</div>}
+              <Field type='text' name='username' id='username' className='text-rich-black px-2 rounded' />
+              {touched.username && errors.username && <div className='text-color-red'>{errors.username}</div>}
 
               <label className='m-2 font-bold' htmlFor='password'>
                 Password
@@ -83,18 +82,12 @@ function Login({handleLogIn}) {
           )}
         </Formik>
         <p>
-          Don't have an account? <span className='font-bold ' onClick={handleSignUpClick}>Sign Up</span>
+          Not an Admin? <span className='font-bold ' onClick={handleSignUpClick}>User Login</span>
         </p>
 
-        <h1 className='mt-6 font-bold'>
-            <span className='inline-flex items-center border-t-2  border-color-blue2'>
-                <span className='text-color-secondary '>OR</span>
-            </span>
-        </h1>
+        
 
-        <Link to='/adminLogin'>
-            <Button type='button' content='Log In as Admin' className='text-sm shadow-lg  bg-color-blue2 my-5 mx-auto py-2  w-80' />
-        </Link>
+       
 
        
 

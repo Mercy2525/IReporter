@@ -10,7 +10,10 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
   <BrowserRouter>
-  <SnackbarProvider>
+  <SnackbarProvider anchorOrigin={{
+          vertical: 'top', // 'top', 'bottom'
+          horizontal: 'center', // 'left', 'center', 'right'
+        }}>
     <App />
   </SnackbarProvider>
   </BrowserRouter>

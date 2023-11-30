@@ -1,14 +1,12 @@
 import {Formik, Form, Field} from 'formik'
 import * as Yup from 'yup'
 import YupPassword from 'yup-password'
-
+import Button from './Button';
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
 import { useSnackbar } from 'notistack';
 
 
 function SignUp() {
-    const [refreshPage, setRefreshPage] = useState(false)
     const navigate = useNavigate();
     const {enqueueSnackbar} = useSnackbar();
 
@@ -40,8 +38,8 @@ function SignUp() {
       
   return (
     <>
-            <div className='flex flex-col items-center justify-center p-20'>
-                <h1 className='font-bold text-2xl mb-8'> Sign Up</h1>
+            <div className='flex flex-col  items-center justify-center p-20'>
+                <h1 className='font-semiBold text-2xl text-color-tertiary mb-8'> Sign Up</h1>
                 <Formik
                     initialValues={{
                         full_name: '',
@@ -62,47 +60,46 @@ function SignUp() {
                             console.log(res.status);
                             if (res.status === 201){
                                 navigate('/login');
-                                setRefreshPage(!refreshPage);
-                                enqueueSnackbar("Account created successfully", {variant: "success"})
+                                enqueueSnackbar("Signed Up Successful", {variant: "success"})
                             }                           
                         })
-                        e.resetForm();
+                        // e.resetForm();
                     }}
                 >
                     {({errors, touched})=>(
-                        <Form className='flex flex-col content-center justify-center max-w-xs w-full'>
+                        <Form className='flex flex-col bg-color-blue content-center justify-center max-w-xs w-full'>
 
-                             <label className='m-2 font-bold' htmlFor='full_name'>
+                             <label className='m-2  font-bold' htmlFor='full_name'>
                                 Fullname
                             </label>
                             <Field type='text' name="full_name" id='full_name' className='text-rich-black px-2 rounded'/>
-                            {touched.full_name && errors.full_name && <div className='text-indian-red'>{errors.full_name}</div>}
+                            {touched.full_name && errors.full_name && <div className='text-color-red'>{errors.full_name}</div>}
 
                             <label className='m-2 font-bold' htmlFor='username'>
                                 Username
                             </label>
                             <Field type='text' name="username" id='username' className='text-rich-black px-2 rounded'/>
-                            {touched.username && errors.username && <div className='text-indian-red'>{errors.username}</div>}
+                            {touched.username && errors.username && <div className='text-color-red'>{errors.username}</div>}
 
                             <label className='m-2 font-bold' htmlFor='email'>
                                 Email address
                             </label>
                             <Field type='text' name="email" id='email' className='text-rich-black px-2 rounded'/>
-                            {touched.email && errors.email && <div className='text-indian-red'>{errors.email}</div>}
+                            {touched.email && errors.email && <div className='text-color-red'>{errors.email}</div>}
 
                             <label className='m-2 font-bold' htmlFor='password'>
                                 Password
                             </label>
                             <Field type='password' name='password' id='password' className='text-rich-black px-2 rounded' />
-                            {touched.password && errors.password && <div className='text-indian-red'>{errors.password}</div>}
+                            {touched.password && errors.password && <div className='text-color-red'>{errors.password}</div>}
 
                             <label className='m-2 font-bold' htmlFor='password'>
                                 Confirm Password
                             </label>
                             <Field type='password' name='confirmPassword' id='confirmPassword' className='text-rich-black px-2 rounded' />
-                            {touched.confirmPassword && errors.confirmPassword && <div className='text-indian-red'>{errors.confirmPassword}</div>}
+                            {touched.confirmPassword && errors.confirmPassword && <div className='text-color-red'>{errors.confirmPassword}</div>}
 
-                            <button type='submit' content='Sign Up' className='text-sm my-5 mx-auto px-1 py-2 w-2/6'>SignUp </button>
+                            <Button type='submit' content='Sign Up' className='text-sm my-5 mx-auto px-1 bg-color-blue2 py-2 w-2/6'/>
                         </Form>
                     )}
 
