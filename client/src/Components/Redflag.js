@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './Redflag.css';
+import '../styles/Redflag.css'
 import { useParams } from 'react-router-dom';
 
 const RedFlag = () => {
