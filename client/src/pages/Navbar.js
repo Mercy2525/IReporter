@@ -6,6 +6,7 @@ import { SiWelcometothejungle } from "react-icons/si";
 
 
 function Navbar({user,handleLogOut}) {
+  
   return (
     <div className='bg-color-tertiary rounded-lg h-16 '>
         <div className='rounded-sm flex flex-row mt-1 mb-1  w-11/12 m-auto p-3'>
