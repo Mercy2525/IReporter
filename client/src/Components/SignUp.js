@@ -38,7 +38,7 @@ function SignUp() {
       
   return (
     <>
-            <div className='flex flex-col  items-center justify-center p-20'>
+            <div className='flex flex-col bg-color-primary  items-center justify-center p-20'>
                 <h1 className='font-semiBold text-2xl text-color-tertiary mb-8'> Sign Up</h1>
                 <Formik
                     initialValues={{
@@ -69,31 +69,31 @@ function SignUp() {
                     {({errors, touched})=>(
                         <Form className='flex flex-col bg-color-blue content-center justify-center max-w-xs w-full'>
 
-                             <label className='m-2  font-bold' htmlFor='full_name'>
+                             <label className='m-2 text-color-tertiary font-bold' htmlFor='full_name'>
                                 Fullname
                             </label>
                             <Field type='text' name="full_name" id='full_name' className='text-rich-black px-2 rounded'/>
                             {touched.full_name && errors.full_name && <div className='text-color-red'>{errors.full_name}</div>}
 
-                            <label className='m-2 font-bold' htmlFor='username'>
+                            <label className='m-2 text-color-tertiary font-bold' htmlFor='username'>
                                 Username
                             </label>
                             <Field type='text' name="username" id='username' className='text-rich-black px-2 rounded'/>
                             {touched.username && errors.username && <div className='text-color-red'>{errors.username}</div>}
 
-                            <label className='m-2 font-bold' htmlFor='email'>
+                            <label className='m-2 text-color-tertiary font-bold' htmlFor='email'>
                                 Email address
                             </label>
                             <Field type='text' name="email" id='email' className='text-rich-black px-2 rounded'/>
                             {touched.email && errors.email && <div className='text-color-red'>{errors.email}</div>}
 
-                            <label className='m-2 font-bold' htmlFor='password'>
+                            <label className='m-2 text-color-tertiary font-bold' htmlFor='password'>
                                 Password
                             </label>
                             <Field type='password' name='password' id='password' className='text-rich-black px-2 rounded' />
                             {touched.password && errors.password && <div className='text-color-red'>{errors.password}</div>}
 
-                            <label className='m-2 font-bold' htmlFor='password'>
+                            <label className='m-2 text-color-tertiary font-bold' htmlFor='password'>
                                 Confirm Password
                             </label>
                             <Field type='password' name='confirmPassword' id='confirmPassword' className='text-rich-black px-2 rounded' />

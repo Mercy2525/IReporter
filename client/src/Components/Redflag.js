@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import '../styles/Redflag.css'
-import { useParams } from 'react-router-dom';
+// import { useParams } from 'react-router-dom';
 
 const RedFlag = ({user}) => {
+  
   console.log(user);
-  const { id } = useParams();
+  // const { id } = useParams();
   const [redFlags, setRedFlags] = useState([]);
   const [loading, setLoading] = useState(true);
   const [redFlagData, setRedFlagData] = useState({
@@ -119,7 +120,7 @@ const RedFlag = ({user}) => {
               <input type="text" name="location" onChange={handleInputChange} required placeholder='Enter the location'/>
 
               <label>Images:</label>
-              <input type="text" onChange={handleInputChange} placeholder='Enter image URL'/>
+              <input type="file" onChange={handleInputChange} placeholder='Enter image URL'/>
 
               <label>Videos:</label>
               <input type="text" onChange={handleInputChange} placeholder='Enter video URL'/>
