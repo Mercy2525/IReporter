@@ -31,7 +31,7 @@ function Landing({user}) {
         .then(resp => resp.json())
         .then(data => {
         setUrl(data.url)
-            fetch('http://127.0.0.1:5555/redflags',{
+            fetch('https://ireporter-backend.onrender.com/redflags',{
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
