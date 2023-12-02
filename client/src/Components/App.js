@@ -4,9 +4,13 @@ import Navbar from "../pages/Navbar.js";
 import Home from '../pages/Home.js';
 import SignUp from './SignUp';
 import Login from './Login';
+import Dashboard from '../Dashboard/Dashboard.js';
 import { useState, useEffect } from 'react';
 import AdminLogin from './AdminLogin.js';
 import { useSnackbar } from 'notistack';
+import Users from '../Dashboard/Users.js';
+import Redflags from '../Dashboard/Redflag.js';
+import Interventions from '../Dashboard/Intervention.js';
 
 
 
@@ -63,7 +67,12 @@ function App() {
           <Route path="/adminLogin" element={<AdminLogin/>}/>
 
         </Route>
+        <Route path="/admindashboard" element={<Dashboard/>}/>
+          <Route path="/usersdashboard" element={<Users/>}/>
+          <Route path="/redflagsdashboard" element={<Redflags/>}/>
+          <Route path="/interventionsdashboard" element={<Interventions/>}/>
       </Routes>
+
 
       
     </div>

@@ -46,11 +46,11 @@ function Login({ updateUser }) {
               .then((res) => {
                 if (res.status === 201) {
                   enqueueSnackbar('Admin Logged in successful!', { variant: 'success' });
-                  navigate('/home');
+                  navigate('/usersdashboard');
                 } else {
                   return res.json().then((data) => {
                     enqueueSnackbar(data.message || 'Invalid username or password', { variant: 'error' });
-                    console.log(data); // Log the response for debugging
+                    console.log(data); 
                   });
                 }
               })
