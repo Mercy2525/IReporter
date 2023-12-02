@@ -45,14 +45,12 @@ function Login({ setAdmin }) {
             })
               .then((res) => {
                 if (res.status === 201) {
-                  res.json()
-                  .then(enqueueSnackbar('Admin Logged in successful!', { variant: 'success' }))
-                  .then(navigate('/home'))
-                  // .then(values=>handleAdminLogIn(values))
+                  enqueueSnackbar('Admin Logged in successful!', { variant: 'success' });
+                  navigate('/usersdashboard');
                 } else {
                   return res.json().then((data) => {
                     enqueueSnackbar(data.message || 'Invalid username or password', { variant: 'error' });
-                    console.log(data); // Log the response for debugging
+                    console.log(data); 
                   });
                 }
               })
