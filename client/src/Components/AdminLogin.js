@@ -46,7 +46,7 @@ function Login({ setAdmin }) {
               .then((res) => {
                 if (res.status === 201) {
                   enqueueSnackbar('Admin Logged in successful!', { variant: 'success' });
-                  navigate('/usersdashboard');
+                  navigate('/admin/users');
                 } else {
                   return res.json().then((data) => {
                     enqueueSnackbar(data.message || 'Invalid username or password', { variant: 'error' });

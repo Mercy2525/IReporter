@@ -58,16 +58,15 @@ function App() {
           <Route element={<Home/>} path="/home"/>
           <Route path="/redflag" element={<Redflag user={user}/>} />
           <Route path="/signup" element={<SignUp />} />
-          <Route path="/login" element={<Login setUser={setUser}  />} />
-          <Route path="/adminLogin" element={<AdminLogin setAdmin={setAdmin}/>}/>
-          <Route path='/landing' element={<Landing user={user}/>}/>
-      </Route>
+          <Route path="/login" element={<Login />} />
+          <Route path="/adminLogin" element={<AdminLogin/>}/>
 
+        </Route>
           <Route path='*' element={<NotFound/>}/>
-          <Route path="/admindashboard" element={<Dashboard/>}/>
-          <Route path="/usersdashboard" element={<Users/>}/>
-          <Route path="/redflagsdashboard" element={<Redflags/>}/>
-          <Route path="/interventionsdashboard" element={<Interventions/>}/>
+          <Route path="/admin/dashboard" element={<Dashboard/>}/>
+          <Route path="/admin/users" element={<Users/>}/>
+          <Route path="/admin/redflags" element={<Redflags/>}/>
+          <Route path="/admin/interventions" element={<Interventions/>}/>
       </Routes>
 
 
