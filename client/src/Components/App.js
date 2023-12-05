@@ -1,69 +1,78 @@
-import {Route, Routes,useNavigate} from 'react-router-dom';
-import Redflag from './Redflag.js';
+import {Route, Routes} from 'react-router-dom';
 import Navbar from "../pages/Navbar.js";
 import Home from '../pages/Home.js';
 import SignUp from './SignUp';
 import Login from './Login';
+import Dashboard from '../Dashboard/Dashboard.js';
 import { useState, useEffect } from 'react';
 import AdminLogin from './AdminLogin.js';
-import { useSnackbar } from 'notistack';
+import Users from '../Dashboard/Users.js';
+import Redflags from '../Dashboard/Redflag.js';
+import Interventions from '../Dashboard/Intervention.js';
+import UserIntervention from './UserIntervention.js'
+import NotFound from '../pages/NotFound.js'
+import Landing from './Landing.js';
+
 
 
 
 function App() {
 
-  const nagivate=useNavigate()
+  const [user, setUser] = useState({});
+  const [admin, setAdmin] = useState({});
+  const[refresh, setRefresh]=useState(false)
 
-  const [user, setUser] = useState(null);
-  const {enqueueSnackbar} = useSnackbar();
-
+ 
+  //user-session
   useEffect(() => {
-    fetch('https://ireporter-backend.onrender.com/session_user', {
-      credentials: 'include'
-    })
-    .then(response => {
-      if (response.ok) {
-        return response.json();
+    fetch("/session_user")
+    .then(response=>{
+      if (response.ok){
+        return response.json()
       }
-      throw new Error('Network response was not ok');
     })
-    .then(data => {
-      setUser(data);
-      console.log(data); 
-    })
-    .catch(error => {
-      console.error('Error fetching session:', error);
-    });
-}, [user]); 
+    .then(data=>setUser(data))
+    .catch(error => console.log(error));
+  }, [refresh]); 
 
-  function handleLogIn(user){
-    setUser(user)
-  }
+  // console.log(redflags)
 
-  function handleLogOut(){
-    fetch("https://ireporter-backend.onrender.com/logout",{
-      method: 'DELETE'
+  //admin session
+  useEffect(() => {
+    fetch("/session_admin")
+    .then(response=>{
+      if (response.ok){
+        return response.json()
+      }
     })
-    .then(setUser(null))
-    .then(enqueueSnackbar('Logged out successfully', {variant:'success'}))
-    .then(nagivate('/'))
-  }
+    .then(data=>setAdmin(data))
+    .catch(error => console.log(error));
+  }, []);
+
+
 
   return (
     <div className="App">
 
       <Routes>
 
-      <Route element={<Navbar handleLogOut={handleLogOut} user={user}/>}>
+      <Route element={<Navbar admin={admin} setAdmin={setAdmin} setUser={setUser} user={user}/>}>
           <Route element={<Home/>} path="/"/>
           <Route element={<Home/>} path="/home"/>
-          <Route path="/redflag" element={<Redflag user={user}/>} />
           <Route path="/signup" element={<SignUp />} />
-          <Route path="/login" element={<Login handleLogIn={handleLogIn} />} />
-          <Route path="/adminLogin" element={<AdminLogin/>}/>
+          <Route path="/login" element={<Login setUser={setUser}  />} />
+          <Route path="/adminLogin" element={<AdminLogin setAdmin={setAdmin}/>}/>
+          <Route path='/landing' element={<Landing user={user} refresh={refresh} setRefresh={setRefresh}/>}/>
+          <Route path='/user/intervention' element={<UserIntervention user={user} refresh={refresh} setRefresh={setRefresh}/>}/>
+      </Route>
 
-        </Route>
+          <Route path='*' element={<NotFound/>}/>
+          <Route path="/admin/dashboard" element={<Dashboard/>}/>
+          <Route path="/admin/users" element={<Users/>}/>
+          <Route path="/admin/redflags" element={<Redflags/>}/>
+          <Route path="/admin/interventions" element={<Interventions/>}/>
       </Routes>
+
 
       
     </div>

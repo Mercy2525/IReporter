@@ -2,11 +2,14 @@ import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import YupPassword from 'yup-password';
 import Button from './Button';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
-import {Link} from 'react-router-dom'
 
-function Login({handleLogIn}) {
+function Login({setUser}) {
+  function handleLogIn(user){
+    setUser(user)
+  }
+
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
 
@@ -16,26 +19,23 @@ function Login({handleLogIn}) {
 
   YupPassword(Yup);
   const errorMessagesSchema = Yup.object().shape({
-    email: Yup.string()
-    .email('Invalid email')
-    .required('This field is required'),
-    password: Yup.string()
-      .required('This field is required')
-      .min(6, 'Password must be at least 6 characters'),
+    email: Yup.string().email('Invalid email').required('This field is required'),
+    password: Yup.string().required('This field is required').min(6, 'Password must be at least 6 characters'),
   });
 
   return (
     <>
-      <div className='flex flex-col items-center justify-center p-20'>
+      <div className='flex flex-col bg-color-primary  items-center justify-center p-20'>
         <h1 className='font-semiBold text-color-blue2 text-2xl mb-8'>User Log In</h1>
+
         <Formik
-          initialValues={{
-            email: '',
-            password: '',
-          }}
+          initialValues={{email: '', password: '', }}
+
           validationSchema={errorMessagesSchema}
+
           onSubmit={(values, e) => {
-            fetch('https://ireporter-backend.onrender.com/login_user', {
+
+            fetch('/login_user', {
               method: "POST",
               headers: {
                 'Content-Type': 'application/json',
@@ -46,8 +46,9 @@ function Login({handleLogIn}) {
                 if (res.status === 201) {
                   res.json()
                   .then(enqueueSnackbar('Log in successful!', { variant: 'success' }))
-                  .then(navigate('/redflag'))
+                  .then(navigate('/landing'))
                   .then(values=>handleLogIn(values))
+                  
                 } else {
                   return res.json().then((data) => {
                     enqueueSnackbar(data.message || 'Invalid email or password', { variant: 'error' });
@@ -66,13 +67,13 @@ function Login({handleLogIn}) {
         >
           {({ errors, touched }) => (
             <Form className='flex flex-col content-center mb-1 justify-center bg-color-blue   max-w-xs w-full'>
-              <label className='m-2 font-bold' htmlFor='email'>
+              <label className='m-2 text-color-tertiary font-bold' htmlFor='email'>
                 Email address
               </label>
               <Field type='email' name='email' id='email' className='text-rich-black px-2 rounded' />
               {touched.email && errors.email && <div className='text-color-red'>{errors.email}</div>}
 
-              <label className='m-2 font-bold' htmlFor='password'>
+              <label className='m-2 text-color-tertiary font-bold' htmlFor='password'>
                 Password
               </label>
               <Field type='password' name='password' id='password' className='text-rich-black px-2 rounded' />
@@ -95,8 +96,6 @@ function Login({handleLogIn}) {
         <Link to='/adminLogin'>
             <Button type='button' content='Log In as Admin' className='text-sm shadow-lg  bg-color-blue2 my-5 mx-auto py-2  w-80' />
         </Link>
-
-       
 
 
        

@@ -1,0 +1,82 @@
+#intervention-div {
+    margin-left: 17%;
+    background-color: #f5efef;
+}
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+  }
+  .header input {
+    width: 300px;
+    border-radius: 15px;
+  }
+  .user-info img {
+    border-radius: 50%;
+    margin-right: 10px;
+    cursor: pointer;
+  }
+  .user-info span {
+    color: black;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  .header img {
+    height: 30px;
+    margin-right: 10px;
+  }
+  
+  .header span {
+    font-weight: bold;
+  }
+  
+  table {
+    border-collapse: collapse;
+    width: 90%;
+  }
+  
+  th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+  }
+  #intervention-table {
+    width: 90%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  #intervention-table th, .intervention-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  #table-img {
+    height: 200px;
+  }
+  #intervention-table th {
+    background-color: #f2f2f2;
+  }
+  
+  #intervention-table tbody tr:hover {
+    background-color: #f5f5f5;
+  }
+  
+  #crud-btns {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  #crud-btns button {
+    width: 100px;
+    color: black;
+  }
+  #crud-btns button:hover {
+    color: white;
+  }

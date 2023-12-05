@@ -5,8 +5,12 @@ import Button from './Button';
 import { useNavigate } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
 
-function Login({ updateUser }) {
+function Login({ setAdmin }) {
     //
+
+  // function handleAdminLogIn(admin){
+  //     setAdmin(admin)
+  //   }
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
 
@@ -16,18 +20,14 @@ function Login({ updateUser }) {
 
   YupPassword(Yup);
   const errorMessagesSchema = Yup.object().shape({
-    username: Yup.string()
-    .min(2, "Username too short!")
-    .max(50, "Username too long")
+    username: Yup.string().min(2, "Username too short!").max(50, "Username too long")
     .required('This field is required'),
-    password: Yup.string()
-      .required('This field is required')
-      .min(6, 'Password must be at least 6 characters'),
+    password: Yup.string().required('This field is required').min(6, 'Password must be at least 6 characters'),
   });
 
   return (
     <>
-      <div className='flex flex-col items-center justify-center p-20'>
+      <div className='flex bg-color-primary flex-col items-center justify-center p-20'>
         <h1 className='font-semiBold text-color-blue2 text-2xl mb-8'> Admin Log In</h1>
         <Formik
           initialValues={{
@@ -36,7 +36,7 @@ function Login({ updateUser }) {
           }}
           validationSchema={errorMessagesSchema}
           onSubmit={(values, e) => {
-            fetch('https://ireporter-backend.onrender.com/login_admin', {
+            fetch('/login_admin', {
               method: "POST",
               headers: {
                 'Content-Type': 'application/json',
@@ -46,11 +46,11 @@ function Login({ updateUser }) {
               .then((res) => {
                 if (res.status === 201) {
                   enqueueSnackbar('Admin Logged in successful!', { variant: 'success' });
-                  navigate('/home');
+                  navigate('/admin/users');
                 } else {
                   return res.json().then((data) => {
                     enqueueSnackbar(data.message || 'Invalid username or password', { variant: 'error' });
-                    console.log(data); // Log the response for debugging
+                    console.log(data); 
                   });
                 }
               })
@@ -65,13 +65,13 @@ function Login({ updateUser }) {
         >
           {({ errors, touched }) => (
             <Form className='flex flex-col content-center mb-1 justify-center bg-color-blue   max-w-xs w-full'>
-              <label className='m-2 font-bold' htmlFor='username'>
+              <label className='m-2 text-color-tertiary font-bold' htmlFor='username'>
                 Username
               </label>
               <Field type='text' name='username' id='username' className='text-rich-black px-2 rounded' />
               {touched.username && errors.username && <div className='text-color-red'>{errors.username}</div>}
 
-              <label className='m-2 font-bold' htmlFor='password'>
+              <label className='m-2 text-color-tertiary font-bold' htmlFor='password'>
                 Password
               </label>
               <Field type='password' name='password' id='password' className='text-rich-black px-2 rounded' />
@@ -84,15 +84,6 @@ function Login({ updateUser }) {
         <p>
           Not an Admin? <span className='font-bold ' onClick={handleSignUpClick}>User Login</span>
         </p>
-
-        
-
-       
-
-       
-
-
-       
       </div>
     </>
   );
