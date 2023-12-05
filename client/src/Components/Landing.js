@@ -19,7 +19,7 @@ function Landing({user, refresh, setRefresh}) {
         e.preventDefault()
         uploadImage() 
     }
-// 
+ 
     const uploadImage = () => {
         const data = new FormData()
         data.append("file", image)
