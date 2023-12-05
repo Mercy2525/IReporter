@@ -28,7 +28,7 @@ const Menu = () => {
         <Link to="/admin/redflags">Redflags</Link>
         <Link to="/admin/interventions">Intervention</Link>
       </div>
-      <div className="logout" onclick={ ()=> adminLogOut}>Logout</div>
+      <div className="logout" onClick={adminLogOut}>Logout</div>
     </div>
   );
 };
