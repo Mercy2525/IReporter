@@ -119,7 +119,7 @@ const Intervention = () => {
               {selectedRecord && (
                 <>
                   <div>
-                    <h2>Edit Redflag Record</h2>
+                    <h2>Edit Redflag Status</h2>
                     <label>Status:</label>
                     <select
                       value={editedStatus}
