@@ -12,7 +12,7 @@ const Intervention = () => {
   const [selectedRecord, setSelectedRecord] = useState(null);
 
   useEffect(() => {
-    const apiUrl = `https://ireporter-backend.onrender.com/intervention`;
+    const apiUrl = `/intervention`;
     fetch(apiUrl)
       .then((response) => {
         if (!response.ok) {
@@ -41,7 +41,7 @@ const Intervention = () => {
 
   const handleSaveEdit = async () => {
     try {
-      const response = await fetch(`https://ireporter-backend.onrender.com/intervention/${selectedRecord.id}`, {
+      const response = await fetch(`/intervention/${selectedRecord.id}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',

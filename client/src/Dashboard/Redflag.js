@@ -12,7 +12,7 @@ const Redflag = () => {
   const [selectedRecord, setSelectedRecord] = useState(null);
 
   useEffect(() => {
-    const apiUrl = `https://ireporter-backend.onrender.com/redflags`;
+    const apiUrl = `/redflags`;
     fetch(apiUrl)
       .then((response) => {
         if (!response.ok) {
@@ -41,7 +41,7 @@ const Redflag = () => {
 
   const handleSaveEdit = async () => {
     try {
-      const response = await fetch(`https://ireporter-backend.onrender.com/redflags/${selectedRecord.id}`, {
+      const response = await fetch(`/redflags/${selectedRecord.id}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',

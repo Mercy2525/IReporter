@@ -9,7 +9,7 @@ const Menu = () => {
     const navigate=useNavigate()
 
     function adminLogOut(){
-        fetch("https://ireporter-backend.onrender.com/logoutA",{
+        fetch("/logoutA",{
           method: 'DELETE'
         })
         //.then(setAdmin(null))

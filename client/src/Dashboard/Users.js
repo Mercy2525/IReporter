@@ -9,7 +9,7 @@ const Users = () => {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    const apiUrl = `https://ireporter-backend.onrender.com/users`;
+    const apiUrl = `/users`;
     fetch(apiUrl)
       .then((response) => {
         if (!response.ok) {
