@@ -17,9 +17,9 @@ function Landing({user, refresh, setRefresh}) {
     //handleSubmit function, plus upload image url to database
     function handleSubmit(e){
         e.preventDefault()
-        uploadImage() 
+        uploadImage()  
     }
-// 
+
     const uploadImage = () => {
         const data = new FormData()
         data.append("file", image)
@@ -32,7 +32,7 @@ function Landing({user, refresh, setRefresh}) {
         .then(resp => resp.json())
         .then(data => {
         setUrl(data.url)
-            fetch('/redflags',{
+            fetch('/intervention',{
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -47,17 +47,17 @@ function Landing({user, refresh, setRefresh}) {
                 }),
             })
             .then((res)=>{
-                if (res.status === 201){
+                if (res.status === 200){
                     enqueueSnackbar('Record posted!', { variant: 'success' })
                     return res.json()
                 } else {
                     return res.json().then((data) => {
-                        enqueueSnackbar('Record post failed', { variant: 'error' });
-                        console.log(data); 
+                      enqueueSnackbar('Record post failed', { variant: 'error' });
+                      console.log(data); 
                     });
                 }
             })
-            .then(()=>setRefresh(!refresh))
+            .then(()=>{setRefresh(!refresh)})
             .catch(e=>console.log(e))
         })
 
@@ -65,19 +65,21 @@ function Landing({user, refresh, setRefresh}) {
         }
     
     
-    
   return (
     <div className="bg-color-primary ">
         <>
 
-      
+        {/* {user? (
+            <h1>You have no Records yet...</h1>
+        ):
+        <p></p>} */}
 
-        {(user && user.red_flag_records)?(
+        {(user && user.intervention_records)?(
             <>  
 
         <div className="flex flex-row  flex-wrap"> 
 
-            {user.red_flag_records.map((redFlag) => (              
+            {user.intervention_records.map((redFlag) => (              
                 <div key={redFlag.id} className="max-w-sm rounded-lg mt-4 overflow-hidden shadow-lg w-11/12 m-auto  p-1">
                     <img className="w-full rounded-sm hover:scale-105" src={redFlag.image} alt="ireporter"/>
                    
@@ -118,15 +120,16 @@ function Landing({user, refresh, setRefresh}) {
 
 
         <form className='flex flex-col content-center mb-1 justify-center bg-color-blue   max-w-xs w-full' onSubmit={handleSubmit}> 
-        <label className="m-2 text-color-tertiary font-bold">Title:</label>
-        <input type="text" className="text-rich-black px-2 rounded" onChange={(e)=>setTitle(e.target.value)}/>
-        <label className="m-2 text-color-tertiary font-bold">Description:</label>
-        <input type="text" className="text-rich-black px-2 rounded"  onChange={(e)=>setDescription(e.target.value)}/>
-        <label className="m-2 text-color-tertiary font-bold">Location:</label>
-        <input type="text" className="text-rich-black px-2 rounded"  onChange={(e)=>setLocation(e.target.value)}/>
-        <label className="m-2 text-color-tertiary font-bold">Image:</label>
-        <input type="file" className="text-rich-black px-2 rounded"  onChange={(e)=>setImage(e.target.files[0])}/>
-        <Button type='submit' content='Submit' className='text-sm bg-color-blue2 my-5 mx-auto py-2  w-2/6' />
+            <label className="m-2 text-color-tertiary font-bold">Title:</label>
+            <input type="text" className="text-rich-black px-2 rounded" onChange={(e)=>setTitle(e.target.value)}/>
+            <label className="m-2 text-color-tertiary font-bold">Description:</label>
+            <input type="text" className="text-rich-black px-2 rounded"  onChange={(e)=>setDescription(e.target.value)}/>
+            <label className="m-2 text-color-tertiary font-bold">Location:</label>
+            <input type="text" className="text-rich-black px-2 rounded"  onChange={(e)=>setLocation(e.target.value)}/>
+            <label className="m-2 text-color-tertiary font-bold">Image:</label>
+            <input type="file" className="text-rich-black px-2 rounded"  onChange={(e)=>setImage(e.target.files[0])}/>
+            
+            <Button type='submit' content='Submit' className='text-sm bg-color-blue2 my-5 mx-auto py-2  w-2/6' />
         </form>
         
     </div>
