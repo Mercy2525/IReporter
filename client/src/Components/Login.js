@@ -35,7 +35,7 @@ function Login({setUser}) {
 
           onSubmit={(values, e) => {
 
-            fetch('https://ireporter-backend.onrender.com/login_user', {
+            fetch('/login_user', {
               method: "POST",
               headers: {
                 'Content-Type': 'application/json',
@@ -48,6 +48,7 @@ function Login({setUser}) {
                   .then(enqueueSnackbar('Log in successful!', { variant: 'success' }))
                   .then(navigate('/landing'))
                   .then(values=>handleLogIn(values))
+                  
                 } else {
                   return res.json().then((data) => {
                     enqueueSnackbar(data.message || 'Invalid email or password', { variant: 'error' });

@@ -10,7 +10,7 @@ function Navbar({user,setUser, admin, setAdmin}) {
   const navigate=useNavigate()
 
   function handleLogOut(){
-    fetch(" http://127.0.0.1:5555/logout",{
+    fetch("/logout",{
       method: 'DELETE'
     })
     .then(setUser(null))
@@ -38,15 +38,23 @@ function Navbar({user,setUser, admin, setAdmin}) {
 
             <div className='flex flex-row m-auto  w-3/4 justify-around items-end content-end p font-medium text-color-white '>
                 <Link className='rounded-lg hover:bg-color-blue2 hover:text-color-black py-2 px-2' to='/home'>Home</Link>
-                <Link className='rounded-lg  hover:bg-color-blue2 py-2 px-2' to={user? ('/landing') :'/login'}>Report Issue</Link>
+
+                {user?(
+                  <div className='flex'>
+                    <p>Redflag</p>
+                    <p>Intervention</p>
+                  </div>
+                ):(
+                  <Link className='rounded-lg  hover:bg-color-blue2 py-2 px-2' to={user? ('/landing') :'/login'}>Report Issue</Link>
+
+                )}
+                
 
 
+               
 
-                {user? (
-                <div>
-                  <button className=' rounded-lg bg-color-tertiary hover:bg-color-blue2 py-2 px-2' onClick={handleLogOut}>LogOut</button>
-                </div>):
-                <Link className='rounded-lg hover:bg-color-blue2 py-2 px-2' to='/login'>LogIn</Link>}
+
+             
 
                 {user?(
                   <div className='flex text-sem text-2xl p-1'>
@@ -55,6 +63,9 @@ function Navbar({user,setUser, admin, setAdmin}) {
                   </div>
                 ):
                 <p></p>}
+
+
+               
 
 
                 {/* {(admin||user) ? (
@@ -96,6 +107,14 @@ function Navbar({user,setUser, admin, setAdmin}) {
 
 
             </div>
+                <div className='text-color-white font-medium mt-1 text-1xl flex items-center'>
+                {user? (
+                <div>
+                  <button className=' rounded-lg bg-color-tertiary hover:bg-color-blue2 py-2 px-2' onClick={handleLogOut}>LogOut</button>
+                </div>):
+                <Link className='rounded-lg hover:bg-color-blue2 py-2 px-2' to='/login'>LogIn</Link>}
+                </div>
+
         </div>
         <Outlet></Outlet>
         <Footer/>
