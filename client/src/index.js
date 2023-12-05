@@ -10,7 +10,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
   <BrowserRouter>
-  <SnackbarProvider anchorOrigin={{
+  <SnackbarProvider autoHideDuration={4000} anchorOrigin={{
           vertical: 'top', // 'top', 'bottom'
           horizontal: 'center', // 'left', 'center', 'right'
         }}>
