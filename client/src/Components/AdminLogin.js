@@ -36,7 +36,7 @@ function Login({ setAdmin }) {
           }}
           validationSchema={errorMessagesSchema}
           onSubmit={(values, e) => {
-            fetch('https://ireporter-backend.onrender.com/login_admin', {
+            fetch('/login_admin', {
               method: "POST",
               headers: {
                 'Content-Type': 'application/json',
