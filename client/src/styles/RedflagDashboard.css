@@ -1,76 +1,64 @@
+#redflag-div {
+  display: flex;
+  background-color: #f5efef;
+}
+#hero-redflag {
+  margin-left: 17%;
+}
 .container {
-    display: flex;
-    flex-wrap: wrap;
-    overflow-x: hidden;
-  }
-  
-#page-content {
-    margin-left: 139%;
-    padding: 20px;
-    display: flex;
-    justify-content: space-between;
-  }
-  
-  div.header {
-    margin-left: 30%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .search-bar {
-    margin-bottom: 20px;
-  }
-  
-  .user-info {
-    display: flex;
-    align-items: center;
-  }
-  
-  .user-info img {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    margin-right: 10px;
-  }
-  
-  .loading {
-    text-align: center;
-    margin-top: 50px;
-    font-size: 1.5em;
-    color: #555;
-  }
-  
-  .redflag-table-container {
-    margin-left: 30%;
-  }
-  .redflag-table {
-    
-    border-collapse: collapse;
-    margin-top: 20px;
-  }
-  
-  .redflag-table th,
-  .redflag-table td {
-    border: 1px solid #ddd;
-    padding: 10px; 
-    text-align: left;
-  }
-  
-  .redflag-table th {
-    background-color: #f2f2f2;
-  }
-  table {
-    width: 40%;
-  }
-  .redflag-table tr:hover {
-    background-color: #f5f5f5;
-  }
-  
-  .redflag-table img {
-    max-width: 100px;
-    height: auto;
-    display: block;
-    margin: 0 auto;
-  }
-  
+  flex-grow: 1;
+  padding: 20px;
+  margin-left: 20px;
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.header input {
+  width: 300px;
+  border-radius: 15px;
+}
+.user-info img {
+  border-radius: 50%;
+  margin-right: 10px;
+  cursor: pointer;
+}
+.user-info span {
+  color: black;
+  font-weight: bold;
+  cursor: pointer;
+}
+#redflag-table {
+  width: 90%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.redflag-table th, .redflag-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.redflag-table th {
+  background-color: #f2f2f2;
+}
+
+.redflag-table tbody tr:hover {
+  background-color: #f5f5f5;
+}
+
+#crud-btns {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+#crud-btns button {
+  width: 100px;
+  color: black;
+}
+#crud-btns button:hover {
+  color: white;
+}

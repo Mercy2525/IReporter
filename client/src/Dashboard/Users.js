@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Menu from './Menu';
 import '../styles/Users.css';
+import Admin from'../assets/Admin2.jpg';
 
 const Users = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -31,7 +32,7 @@ const Users = () => {
   };
 
   return (
-    <div className="container">
+    <div className="container" id="users-div">
       <Menu />
       <div className="page-content">
         <div className="header">
@@ -44,7 +45,7 @@ const Users = () => {
             />
           </div>
           <div className="user-info">
-            <img src="" alt="User Avatar" />
+            <img src={Admin} alt="User Avatar" />
             <span>ADMIN</span>
           </div>
         </div>
@@ -54,7 +55,7 @@ const Users = () => {
           ) : (
             <>
               <h1>Users</h1>
-              <table>
+              <table id="users-table">
                 <thead>
                   <tr>
                     <th>ID</th>

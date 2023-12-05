@@ -69,11 +69,10 @@ function App() {
       </Route>
 
           <Route path='*' element={<NotFound/>}/>
-          <Route path="/admindashboard" element={<Dashboard/>}/>
-          <Route path="/usersdashboard" element={<Users/>}/>
-          <Route path="/redflagsdashboard" element={<Redflags/>}/>
-          <Route path="/interventionsdashboard" element={<Interventions/>}/>
-         
+          <Route path="/admin/dashboard" element={<Dashboard/>}/>
+          <Route path="/admin/users" element={<Users/>}/>
+          <Route path="/admin/redflags" element={<Redflags/>}/>
+          <Route path="/admin/interventions" element={<Interventions/>}/>
       </Routes>
 
 

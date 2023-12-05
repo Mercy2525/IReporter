@@ -27,13 +27,22 @@ table {
     margin-right: 10px;
   }
   
-.container {
+#users-div {
   display: flex;
+  overflow: hidden;
 }
-
+.container {
+  flex-grow: 1;
+  padding: 20px;
+  margin-left: 20px;
+  overflow-x: hidden; 
+}
 .page-content {
   margin-left: 200px; 
-  padding: 20px;
+  padding: 0 10px 0 20px;
+  width: 100%;
+  background-color: #f5efef;
+  overflow-x: hidden; 
 }
 
 .header {
@@ -64,4 +73,6 @@ table {
   font-size: 1.5em;
   color: #555;
 }
-
+#users-table {
+  width: 90%;
+}

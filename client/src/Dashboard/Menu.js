@@ -24,11 +24,11 @@ const Menu = () => {
         <h1 className='font-semibold'> I-Reporter</h1> 
       </div>
       <div className="menu-links">
-        <Link to="/usersdashboard">Users</Link>
-        <Link to="/redflagsdashboard">Redflags</Link>
-        <Link to="/interventionsdashboard">Intervention</Link>
+        <Link to="/admin/users">Users</Link>
+        <Link to="/admin/redflags">Redflags</Link>
+        <Link to="/admin/interventions">Intervention</Link>
       </div>
-      <div className="logout" onclick={ ()=> adminLogOut}>Logout</div>
+      <div className="logout" onClick={adminLogOut}>Logout</div>
     </div>
   );
 };
