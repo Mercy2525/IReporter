@@ -9,6 +9,7 @@ const Intervention = () => {
   const [intervention, setIntervention] = useState([]);
   const [editedStatus, setEditedStatus] = useState('');
   const [selectedRecord, setSelectedRecord] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     const apiUrl = `/intervention`;
@@ -38,6 +39,14 @@ const Intervention = () => {
     setSelectedRecord(record);
   };
 
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
   const handleSaveEdit = async () => {
     try {
       const response = await fetch(`/intervention/${selectedRecord.id}`, {
@@ -63,6 +72,7 @@ const Intervention = () => {
     }
   };
 
+  
   const filteredInterventions = intervention.filter((intervention) =>
     intervention.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
@@ -80,11 +90,20 @@ const Intervention = () => {
               onChange={handleSearch}
             />
           </div>
-          <div className="user-info">
+          <div onClick={handleOpenModal} className="user-info">
             <img src={Admin} alt="Admin" />
             <span>ADMIN</span>
           </div>
         </div>
+        {isModalOpen && (
+                <div className="modal-overlay">
+                  <div className="modal">
+                    <button onClick={handleCloseModal}>X</button>
+                    <h2>admin</h2>
+                    <p>admin@admin</p>
+                  </div>
+                </div>
+              )}
         <div>
           {loading ? (
             <p>Loading...</p>
