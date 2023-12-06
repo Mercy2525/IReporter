@@ -46,7 +46,7 @@ function Login({setUser}) {
                 if (res.status === 201) {
                   res.json()
                   .then(enqueueSnackbar('Log in successful!', { variant: 'success' }))
-                  .then(navigate('/landing'))
+                  .then(navigate('/user/redflags'))
                   .then(values=>handleLogIn(values))
                   
                 } else {
