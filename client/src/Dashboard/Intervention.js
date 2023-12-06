@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import Menu from './Menu';
 import '../styles/InterventionDashboard.css';
-import Admin from'../assets/Admin2.jpg';
+import Admin from '../assets/Admin2.jpg';
 
 const Intervention = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [loading, setLoading] = useState(true);
   const [intervention, setIntervention] = useState([]);
-
   const [editedStatus, setEditedStatus] = useState('');
   const [selectedRecord, setSelectedRecord] = useState(null);
 
@@ -64,6 +63,9 @@ const Intervention = () => {
     }
   };
 
+  const filteredInterventions = intervention.filter((intervention) =>
+    intervention.title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   return (
     <div id="intervention-div">
@@ -101,16 +103,18 @@ const Intervention = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {intervention.map((interventions) => (
-                    <tr key={interventions.id}>
-                      <td>{interventions.id}</td>
-                      <td>{interventions.title}</td>
-                      <td>{interventions.description}</td>
-                      <td><img id="table-img" src={interventions.image} /></td>
-                      <td>{interventions.created_at}</td>
-                      <td>{interventions.status}</td>                     
+                  {filteredInterventions.map((intervention) => (
+                    <tr key={intervention.id}>
+                      <td>{intervention.id}</td>
+                      <td>{intervention.title}</td>
+                      <td>{intervention.description}</td>
+                      <td>
+                        <img id="table-img" src={intervention.image} alt={intervention.title} />
+                      </td>
+                      <td>{intervention.created_at}</td>
+                      <td>{intervention.status}</td>
                       <td id="crud-btns">
-                        <button onClick={() => handleEdit(interventions)}>Change status</button>
+                        <button onClick={() => handleEdit(intervention)}>Change status</button>
                       </td>
                     </tr>
                   ))}

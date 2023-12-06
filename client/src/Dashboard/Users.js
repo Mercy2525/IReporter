@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Menu from './Menu';
 import '../styles/Users.css';
-import Admin from'../assets/Admin2.jpg';
+import Admin from '../assets/Admin2.jpg';
 
 const Users = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -30,6 +30,12 @@ const Users = () => {
   const handleSearch = (event) => {
     setSearchTerm(event.target.value);
   };
+
+  const filteredUsers = users.filter(
+    (user) =>
+      user.username.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      user.full_name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   return (
     <div className="container" id="users-div">
@@ -65,7 +71,7 @@ const Users = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {users.map((user) => (
+                  {filteredUsers.map((user) => (
                     <tr key={user.id}>
                       <td>{user.id}</td>
                       <td>{user.full_name}</td>

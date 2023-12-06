@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import Menu from './Menu';
 import '../styles/RedflagDashboard.css';
-import Admin from'../assets/Admin2.jpg';
+import Admin from '../assets/Admin2.jpg';
 
 const Redflag = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [loading, setLoading] = useState(true);
   const [redflags, setRedflags] = useState([]);
-
   const [editedStatus, setEditedStatus] = useState('');
   const [selectedRecord, setSelectedRecord] = useState(null);
 
@@ -64,6 +63,9 @@ const Redflag = () => {
     }
   };
 
+  const filteredRedflags = redflags.filter((redflag) =>
+    redflag.title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   return (
     <div id="redflag-div">
@@ -101,14 +103,16 @@ const Redflag = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {redflags.map((redflag) => (
+                  {filteredRedflags.map((redflag) => (
                     <tr key={redflag.id}>
                       <td>{redflag.id}</td>
                       <td>{redflag.title}</td>
                       <td>{redflag.description}</td>
-                      <td><img src={redflag.image} /></td>
+                      <td>
+                        <img src={redflag.image} alt={redflag.title} />
+                      </td>
                       <td>{redflag.created_at}</td>
-                      <td>{redflag.status}</td>                
+                      <td>{redflag.status}</td>
                       <td id="crud-btns">
                         <button onClick={() => handleEdit(redflag)}>Change status</button>
                       </td>
