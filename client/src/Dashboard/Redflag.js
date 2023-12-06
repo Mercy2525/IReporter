@@ -9,6 +9,8 @@ const Redflag = () => {
   const [redflags, setRedflags] = useState([]);
   const [editedStatus, setEditedStatus] = useState('');
   const [selectedRecord, setSelectedRecord] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
 
   useEffect(() => {
     const apiUrl = `/redflags`;
@@ -37,6 +39,15 @@ const Redflag = () => {
     setEditedStatus(record.status);
     setSelectedRecord(record);
   };
+
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
 
   const handleSaveEdit = async () => {
     try {
@@ -80,11 +91,20 @@ const Redflag = () => {
               onChange={handleSearch}
             />
           </div>
-          <div className="user-info">
+          <div onClick={handleOpenModal} className="user-info">
             <img src={Admin} alt="User Avatar" />
             <span>ADMIN</span>
           </div>
         </div>
+        {isModalOpen && (
+                <div className="modal-overlay">
+                  <div className="modal">
+                    <button onClick={handleCloseModal}>X</button>
+                    <h2>admin</h2>
+                    <p>admin@admin</p>
+                  </div>
+                </div>
+              )}
         <div>
           {loading ? (
             <p className="loading">Loading...</p>

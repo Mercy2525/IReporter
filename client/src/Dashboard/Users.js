@@ -7,6 +7,7 @@ const Users = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [loading, setLoading] = useState(true);
   const [users, setUsers] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     const apiUrl = `/users`;
@@ -31,6 +32,13 @@ const Users = () => {
     setSearchTerm(event.target.value);
   };
 
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
   const filteredUsers = users.filter(
     (user) =>
       user.username.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -50,11 +58,20 @@ const Users = () => {
               onChange={handleSearch}
             />
           </div>
-          <div className="user-info">
+          <div onClick={handleOpenModal} className="user-info">
             <img src={Admin} alt="User Avatar" />
             <span>ADMIN</span>
           </div>
         </div>
+        {isModalOpen && (
+                <div className="modal-overlay">
+                  <div className="modal">
+                    <button onClick={handleCloseModal}>X</button>
+                    <h2>admin</h2>
+                    <p>admin@admin</p>
+                  </div>
+                </div>
+              )}
         <div>
           {loading ? (
             <p className="loading">Loading...</p>
