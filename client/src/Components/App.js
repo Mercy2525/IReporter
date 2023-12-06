@@ -1,4 +1,5 @@
 import {Route, Routes} from 'react-router-dom';
+import Redflag from './Redflag.js';
 import Navbar from "../pages/Navbar.js";
 import Home from '../pages/Home.js';
 import SignUp from './SignUp';
@@ -59,10 +60,11 @@ function App() {
       <Route element={<Navbar admin={admin} setAdmin={setAdmin} setUser={setUser} user={user}/>}>
           <Route element={<Home/>} path="/"/>
           <Route element={<Home/>} path="/home"/>
+          <Route path="/redflag" element={<Redflag user={user}/>} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/login" element={<Login setUser={setUser}  />} />
           <Route path="/adminLogin" element={<AdminLogin setAdmin={setAdmin}/>}/>
-          <Route path='/landing' element={<Landing user={user} refresh={refresh} setRefresh={setRefresh}/>}/>
+          <Route path='/user/redflags' element={<Landing user={user} refresh={refresh} setRefresh={setRefresh}/>}/>
           <Route path='/user/intervention' element={<UserIntervention user={user} refresh={refresh} setRefresh={setRefresh}/>}/>
       </Route>
 
