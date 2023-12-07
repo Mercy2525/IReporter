@@ -44,7 +44,7 @@ function Navbar({user,setUser}) {
         </div>
       ) : (
         <div className='w-1/3 m-auto flex justify-between'>
-          <Link className='text-color-white font-medium hover:bg-color-blue2 p-2 rounded-lg' to='/user/intervention'>Report Issue</Link>
+          <Link className='text-color-white font-medium hover:bg-color-blue2 p-2 rounded-lg' to={user? ('/user/intervention'): ('/login')}>Report Issue</Link>
           <Link className='text-color-white font-medium hover:bg-color-blue2 p-2 rounded-lg' to='/login'>LogIn</Link>
           
         </div>

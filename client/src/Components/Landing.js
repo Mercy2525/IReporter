@@ -17,7 +17,7 @@ function Landing({user, refresh, setRefresh}) {
 
     const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
-    //delete record
+    //delete Redflag record
     function handledelete(id) {
 
         enqueueSnackbar("Are you sure you want to delete this item?", {
@@ -144,20 +144,18 @@ function Landing({user, refresh, setRefresh}) {
     <div className="bg-color-primary ">
         <>
 
-      
 
         {(user && user.red_flag_records)?(
             <>  
              <h1 className="text-color-blue2 font-medium p-3 text-3xl text-center">Your Redflag Records</h1>
 
-        <div className="flex flex-row  flex-wrap"> 
-       
+        <div className="flex flex-wrap"> 
 
             {user.red_flag_records.map((redFlag) => (              
-                <div key={redFlag.id} className="flex flex-row rounded-lg mt-3 overflow-hidden shadow-lg w-11/12 m-auto p-1">
+                <div key={redFlag.id} className="flex flex-row flex-wrap rounded-lg mt-4 overflow-hidden shadow-lg w-8/12 m-auto p-1">
                     <img className="w-96 h-96 object-cover rounded-md hover:scale-105" src={redFlag.image} alt="ireporter"/>
                    
-                    <div className="px-6 py-4">
+                    <div className="w-8/12 m-auto px-6 py-4">
                         <div className="font-medium text-xl mb-2"> 
                             {isEditing === redFlag.id ? (
                             <>
@@ -178,7 +176,7 @@ function Landing({user, refresh, setRefresh}) {
 
                         </p>
 
-                        <p className=" text-black text-1xl flex items-center mt-10">
+                        <p className=" text-black font-semibold text-1xl flex items-center mt-10">
                         {isEditing === redFlag.id ? (                  
                         <>
                             Location:
@@ -242,7 +240,7 @@ function Landing({user, refresh, setRefresh}) {
         
         </>
 
-        <p className="text-color-blue2 font-medium m-10 ml-40 text-2xl text-center" >
+        <p className="text-gray-600 font-medium m-10 ml-40 text-2xl text-center" >
               If you have witnessed an incident linked to corruption, please use this form to report the details.
               Your contribution helps in promoting transparency and fighting against corruption in our community.
         </p>
