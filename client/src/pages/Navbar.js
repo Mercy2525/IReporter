@@ -24,26 +24,27 @@ function Navbar({user,setUser}) {
     <div className='bg-color-tertiary rounded-lg h-16 '>
         <div className='rounded-sm flex flex-row justify-between items-center h-full w-11/12 px-4'>
           <p className="text-color-white font-medium text-3xl flex items-center">
-            <FaHandBackFist className="w-6 mr-2 text-2xl"/>
+            <FaHandBackFist className="w-6 mx-3 text-2xl"/>
             IReporter
           </p>
 
-    <div className='flex flex-row items-center justify-evenly h-full w-11/12 mt-5 space-x-4'>
-      <Link className='text-color-white font-medium hover:bg-color-blue2 p-2 rounded-lg' to='/home'>Home</Link>
+    <div className='flex flex-row items-center justify-between h-full w-11/12 mt-5 space-x-4'>
+      <Link className='text-color-white ml-40 font-medium hover:bg-color-blue2 p-2 rounded-lg' to='/home'>Home</Link>
 
       {user ? (
-        <div className='flex items-center w-4/6 justify-between flex-end my-4  space-x-4'>
-          <Link className='text-color-white font-medium hover:bg-color-blue2 p-2 rounded-lg' to='/user/redflags'>Redflag</Link>
+        <div className='flex items-center w-4/6 justify-between flex-end my-4 space-x-4'>
+          <Link className='text-color-white mr-10 font-medium hover:bg-color-blue2 p-2 rounded-lg' to='/user/redflags'>Redflag</Link>
           <Link className='text-color-white font-medium hover:bg-color-blue2 p-2 rounded-lg' to='/user/intervention'>Intervention</Link>
+          
+          <Button content='LogOut' onClick={handleLogOut} className='text-sm hover:bg-color-blue2 rounded-lg border text-color-white py-2 px-4' />
           <div className='text-sem text-2xl flex my-4'>
-            <SiWelcometothejungle className='text-3xl text-color-white '/>
+            <SiWelcometothejungle className='text-3xl font-light text-color-white '/>
             <p className='text-color-white'>elcome, {user.username}</p>
           </div>
-          <Button content='LogOut' onClick={handleLogOut} className='text-sm hover:bg-color-blue2 rounded-lg border text-color-white py-2 px-4' />
         </div>
       ) : (
         <div className='w-1/3 m-auto flex justify-between'>
-          <Link className='text-color-white font-medium hover:bg-color-blue2 p-2 rounded-lg' to='/landing'>Report Issue</Link>
+          <Link className='text-color-white font-medium hover:bg-color-blue2 p-2 rounded-lg' to='/user/intervention'>Report Issue</Link>
           <Link className='text-color-white font-medium hover:bg-color-blue2 p-2 rounded-lg' to='/login'>LogIn</Link>
           
         </div>
