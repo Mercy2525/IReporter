@@ -69,38 +69,44 @@ function Landing({user, refresh, setRefresh}) {
     <div className="bg-color-primary ">
         <>
 
-        {/* {user? (
-            <h1>You have no Records yet...</h1>
-        ):
-        <p></p>} */}
+      
 
         {(user && user.intervention_records)?(
             <>  
 
-        <div className="flex flex-row  flex-wrap"> 
+        <div className="flex  flex-wrap"> 
 
             {user.intervention_records.map((redFlag) => (              
-                <div key={redFlag.id} className="max-w-sm rounded-lg mt-4 overflow-hidden shadow-lg w-11/12 m-auto  p-1">
-                    <img className="w-full rounded-sm hover:scale-105" src={redFlag.image} alt="ireporter"/>
+                <div key={redFlag.id} className="flex flex-row flex-wrap rounded-lg mt-4 overflow-hidden shadow-lg w-8/12 m-auto p-1">
+                    <img className="w-96 h-96 object-cover rounded-md hover:scale-105" src={redFlag.image} alt="ireporter"/>
                    
-                    <div className="px-6 py-4">
-                        <div className="font-bold text-xl mb-2"> Title: {redFlag.title}</div>
+                    <div className="px-6 w-8/12 m-auto py-4">
+                        <div className="font-medium text-xl mb-2"> Title: {redFlag.title}</div>
                         <p className="text-gray-700 text-base">
                            Description: {redFlag.description}
                         </p>
-                    </div>
-                    <p className=" text-black text-1xl flex items-center px-6 ">
-                    Location<SlLocationPin className="text-blue-500 w-6" />
+                        <p className=" text-black font-semibold text-1xl flex items-center mt-10">
+                            Location<SlLocationPin className="text-blue-500 w-6" />
                         {redFlag.location}
-                    </p>
+                        </p>
+                        <div className="flex items-center p-2">
+                            <img className="w-10 h-10 rounded-full mr-4" src={redFlag.image} alt="redflag-record"/>
+                            <div className="text-xl mt-7">
+                                <p className="text-color-blue2 leading-none">Status: {redFlag.status}</p>
+                                <p className="text-gray-600">Created at: {redFlag.created_at}</p>
+                            </div>
+                        </div>
+                        
+                    </div>
                     
-                    <div className="flex items-center p-2">
+                    
+                    {/* <div className="flex items-center p-2">
                         <img className="w-10 h-10 rounded-full mr-4" src={redFlag.image} alt="redflag-record"/>
                         <div className="text-base mt-3">
                             <p className="text-color-blue2 leading-none">Status: {redFlag.status}</p>
                             <p className="text-gray-600">Created at: {redFlag.created_at}</p>
                         </div>
-                    </div>
+                    </div> */}
                 </div>
              
             ))}

@@ -12,7 +12,7 @@ root.render(
   <BrowserRouter>
   <SnackbarProvider autoHideDuration={4000} anchorOrigin={{
           vertical: 'top', // 'top', 'bottom'
-          horizontal: 'center', // 'left', 'center', 'right'
+          horizontal: 'right', // 'left', 'center', 'right'
         }}>
     <App />
   </SnackbarProvider>
