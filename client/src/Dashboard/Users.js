@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import Menu from './Menu';
 import '../styles/Users.css';
-import Admin from'../assets/Admin2.jpg';
+import Admin from '../assets/Admin2.jpg';
 
 const Users = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [loading, setLoading] = useState(true);
   const [users, setUsers] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     const apiUrl = `/users`;
@@ -31,6 +32,19 @@ const Users = () => {
     setSearchTerm(event.target.value);
   };
 
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+  const filteredUsers = users.filter(
+    (user) =>
+      user.username.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      user.full_name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <div className="container" id="users-div">
       <Menu />
@@ -44,11 +58,20 @@ const Users = () => {
               onChange={handleSearch}
             />
           </div>
-          <div className="user-info">
+          <div onClick={handleOpenModal} className="user-info">
             <img src={Admin} alt="User Avatar" />
             <span>ADMIN</span>
           </div>
         </div>
+        {isModalOpen && (
+                <div className="modal-overlay">
+                  <div className="modal">
+                    <button onClick={handleCloseModal}>X</button>
+                    <h2>admin</h2>
+                    <p>admin@admin</p>
+                  </div>
+                </div>
+              )}
         <div>
           {loading ? (
             <p className="loading">Loading...</p>
@@ -65,7 +88,7 @@ const Users = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {users.map((user) => (
+                  {filteredUsers.map((user) => (
                     <tr key={user.id}>
                       <td>{user.id}</td>
                       <td>{user.full_name}</td>

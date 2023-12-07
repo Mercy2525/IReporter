@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import Menu from './Menu';
 import '../styles/RedflagDashboard.css';
-import Admin from'../assets/Admin2.jpg';
+import Admin from '../assets/Admin2.jpg';
 
 const Redflag = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [loading, setLoading] = useState(true);
   const [redflags, setRedflags] = useState([]);
-
   const [editedStatus, setEditedStatus] = useState('');
   const [selectedRecord, setSelectedRecord] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
 
   useEffect(() => {
     const apiUrl = `/redflags`;
@@ -39,6 +40,15 @@ const Redflag = () => {
     setSelectedRecord(record);
   };
 
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
+
   const handleSaveEdit = async () => {
     try {
       const response = await fetch(`/redflags/${selectedRecord.id}`, {
@@ -64,6 +74,9 @@ const Redflag = () => {
     }
   };
 
+  const filteredRedflags = redflags.filter((redflag) =>
+    redflag.title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   return (
     <div id="redflag-div">
@@ -78,11 +91,20 @@ const Redflag = () => {
               onChange={handleSearch}
             />
           </div>
-          <div className="user-info">
+          <div onClick={handleOpenModal} className="user-info">
             <img src={Admin} alt="User Avatar" />
             <span>ADMIN</span>
           </div>
         </div>
+        {isModalOpen && (
+                <div className="modal-overlay">
+                  <div className="modal">
+                    <button onClick={handleCloseModal}>X</button>
+                    <h2>admin</h2>
+                    <p>admin@admin</p>
+                  </div>
+                </div>
+              )}
         <div>
           {loading ? (
             <p className="loading">Loading...</p>
@@ -101,14 +123,16 @@ const Redflag = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {redflags.map((redflag) => (
+                  {filteredRedflags.map((redflag) => (
                     <tr key={redflag.id}>
                       <td>{redflag.id}</td>
                       <td>{redflag.title}</td>
                       <td>{redflag.description}</td>
-                      <td><img src={redflag.image} /></td>
+                      <td>
+                        <img src={redflag.image} alt={redflag.title} />
+                      </td>
                       <td>{redflag.created_at}</td>
-                      <td>{redflag.status}</td>                
+                      <td>{redflag.status}</td>
                       <td id="crud-btns">
                         <button onClick={() => handleEdit(redflag)}>Change status</button>
                       </td>
