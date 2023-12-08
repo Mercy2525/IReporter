@@ -84,3 +84,33 @@
 #crud-btns button:hover {
   color: white;
 }
+
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.pagination button {
+  background-color: #244873;
+  color: white;
+  border: 1px solid #244873;
+  margin: 0 5px;
+  cursor: pointer;
+  width: 7%;
+}
+#page-number {
+  width: 3%;
+
+  padding: auto
+}
+.pagination button:hover {
+  background-color: #244873;
+}
+
+.pagination button:disabled {
+  background-color: #dddddd;
+  color: #666;
+  cursor: not-allowed;
+}

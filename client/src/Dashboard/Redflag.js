@@ -11,6 +11,17 @@ const Redflag = () => {
   const [selectedRecord, setSelectedRecord] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(5);
+
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const filteredRedflagsItems = redflags.filter((redflag) =>
+    redflag.title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+  const currentRedflags = filteredRedflagsItems.slice(indexOfFirstItem, indexOfLastItem);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   useEffect(() => {
     const apiUrl = `/redflags`;
@@ -33,6 +44,7 @@ const Redflag = () => {
 
   const handleSearch = (event) => {
     setSearchTerm(event.target.value);
+    setCurrentPage(1);
   };
 
   const handleEdit = async (record) => {
@@ -123,7 +135,7 @@ const Redflag = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {filteredRedflags.map((redflag) => (
+                  {currentRedflags.map((redflag) => (
                     <tr key={redflag.id}>
                       <td>{redflag.id}</td>
                       <td>{redflag.title}</td>
@@ -140,6 +152,22 @@ const Redflag = () => {
                   ))}
                 </tbody>
               </table>
+              <div className="pagination">
+                <button onClick={() => paginate(currentPage - 1)} disabled={currentPage === 1}>
+                  Previous
+                </button>
+                {Array.from({ length: Math.ceil(filteredRedflags.length / itemsPerPage) }, (_, i) => (
+                  <button id="page-number" key={i + 1} onClick={() => paginate(i + 1)}>
+                    {i + 1}
+                  </button>
+                ))}
+                <button
+                  onClick={() => paginate(currentPage + 1)}
+                  disabled={currentPage === Math.ceil(filteredRedflags.length / itemsPerPage)}
+                >
+                  Next
+                </button>
+              </div>
               {selectedRecord && (
                 <>
                   <div>

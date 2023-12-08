@@ -3,6 +3,8 @@ import Menu from './Menu';
 import '../styles/InterventionDashboard.css';
 import Admin from '../assets/Admin2.jpg';
 
+
+
 const Intervention = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [loading, setLoading] = useState(true);
@@ -10,6 +12,21 @@ const Intervention = () => {
   const [editedStatus, setEditedStatus] = useState('');
   const [selectedRecord, setSelectedRecord] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(5); 
+
+  const filteredInterventions = intervention.filter((intervention) =>
+  intervention.title.toLowerCase().includes(searchTerm.toLowerCase())
+);
+
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = filteredInterventions.slice(indexOfFirstItem, indexOfLastItem);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+
 
   useEffect(() => {
     const apiUrl = `/intervention`;
@@ -32,6 +49,7 @@ const Intervention = () => {
 
   const handleSearch = (event) => {
     setSearchTerm(event.target.value);
+    setCurrentPage(1);
   };
 
   const handleEdit = async (record) => {
@@ -73,9 +91,7 @@ const Intervention = () => {
   };
 
   
-  const filteredInterventions = intervention.filter((intervention) =>
-    intervention.title.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+
 
   return (
     <div id="intervention-div">
@@ -122,7 +138,7 @@ const Intervention = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {filteredInterventions.map((intervention) => (
+                  {currentItems.map((intervention) => (
                     <tr key={intervention.id}>
                       <td>{intervention.id}</td>
                       <td>{intervention.title}</td>
@@ -139,6 +155,25 @@ const Intervention = () => {
                   ))}
                 </tbody>
               </table>
+              <div className="pagination">
+                <button
+                  onClick={() => paginate(currentPage - 1)}
+                  disabled={currentPage === 1}
+                >
+                  Previous
+                </button>
+                {Array.from({ length: Math.ceil(filteredInterventions.length / itemsPerPage) }, (_, i) => (
+                  <button id="page-number" key={i + 1} onClick={() => paginate(i + 1)}>
+                    {i + 1}
+                  </button>
+                ))}
+                <button
+                  onClick={() => paginate(currentPage + 1)}
+                  disabled={currentPage === Math.ceil(filteredInterventions.length / itemsPerPage)}
+                >
+                  Next
+                </button>
+              </div>
               {selectedRecord && (
                 <>
                   <div>
