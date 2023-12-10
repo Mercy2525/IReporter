@@ -47,7 +47,7 @@ const Redflag = () => {
     setCurrentPage(1);
   };
 
-  const handleEdit = async (record) => {
+  const handleEdit = (record) => {
     setEditedStatus(record.status);
     setSelectedRecord(record);
   };
@@ -59,7 +59,6 @@ const Redflag = () => {
   const handleCloseModal = () => {
     setIsModalOpen(false);
   };
-
 
   const handleSaveEdit = async () => {
     try {
@@ -109,14 +108,14 @@ const Redflag = () => {
           </div>
         </div>
         {isModalOpen && (
-                <div className="modal-overlay">
-                  <div className="modal">
-                    <button onClick={handleCloseModal}>X</button>
-                    <h2>admin</h2>
-                    <p>admin@admin</p>
-                  </div>
-                </div>
-              )}
+          <div className="modal-overlay">
+            <div className="modal">
+              <button onClick={handleCloseModal}>X</button>
+              <h2>admin</h2>
+              <p>admin@admin</p>
+            </div>
+          </div>
+        )}
         <div>
           {loading ? (
             <p className="loading">Loading...</p>
@@ -144,7 +143,25 @@ const Redflag = () => {
                         <img src={redflag.image} alt={redflag.title} />
                       </td>
                       <td>{redflag.created_at}</td>
-                      <td>{redflag.status}</td>
+                      <td>
+                        {selectedRecord && selectedRecord.id === redflag.id ? (
+                          <>
+                            <select
+                              value={editedStatus}
+                              onChange={(e) => setEditedStatus(e.target.value)}
+                            >
+                              <option></option>
+                              <option value="under investigation">Under Investigation</option>
+                              <option value="resolved">Resolved</option>
+                              <option value="rejected">Rejected</option>
+                            </select>
+                            <button onClick={handleSaveEdit}>Save Changes</button>
+                            <button onClick={() => setSelectedRecord(null)}>Cancel</button>
+                          </>
+                        ) : (
+                          redflag.status
+                        )}
+                      </td>
                       <td id="crud-btns">
                         <button onClick={() => handleEdit(redflag)}>Change status</button>
                       </td>
@@ -156,37 +173,28 @@ const Redflag = () => {
                 <button onClick={() => paginate(currentPage - 1)} disabled={currentPage === 1}>
                   Previous
                 </button>
-                {Array.from({ length: Math.ceil(filteredRedflags.length / itemsPerPage) }, (_, i) => (
-                  <button id="page-number" key={i + 1} onClick={() => paginate(i + 1)}>
-                    {i + 1}
-                  </button>
-                ))}
+                {Array.from(
+                  { length: Math.ceil(filteredRedflags.length / itemsPerPage) },
+                  (_, i) => (
+                    <button
+                      id="page-number"
+                      key={i + 1}
+                      onClick={() => paginate(i + 1)}
+                    >
+                      {i + 1}
+                    </button>
+                  )
+                )}
                 <button
                   onClick={() => paginate(currentPage + 1)}
-                  disabled={currentPage === Math.ceil(filteredRedflags.length / itemsPerPage)}
+                  disabled={
+                    currentPage ===
+                    Math.ceil(filteredRedflags.length / itemsPerPage)
+                  }
                 >
                   Next
                 </button>
               </div>
-              {selectedRecord && (
-                <>
-                  <div>
-                    <h2>Edit Redflag Record</h2>
-                    <label>Status:</label>
-                    <select
-                      value={editedStatus}
-                      onChange={(e) => setEditedStatus(e.target.value)}
-                    >
-                      <option></option>
-                      <option value="under investigation">Under Investigation</option>
-                      <option value="resolved">Resolved</option>
-                      <option value="rejected">Rejected</option>
-                    </select>
-                    <button onClick={handleSaveEdit}>Save Changes</button>
-                    <button onClick={() => setSelectedRecord(null)}>Cancel</button>
-                  </div>
-                </>
-              )}
             </>
           )}
         </div>
