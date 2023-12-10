@@ -147,7 +147,23 @@ const Intervention = () => {
                         <img id="table-img" src={intervention.image} alt={intervention.title} />
                       </td>
                       <td>{intervention.created_at}</td>
-                      <td>{intervention.status}</td>
+                      <td>{selectedRecord && selectedRecord.id === intervention.id ? (
+                          <>
+                            <select
+                              value={editedStatus}
+                              onChange={(e) => setEditedStatus(e.target.value)}
+                            >
+                              <option></option>
+                              <option value="under investigation">Under Investigation</option>
+                              <option value="resolved">Resolved</option>
+                              <option value="rejected">Rejected</option>
+                            </select>
+                            <button onClick={handleSaveEdit}>Save Changes</button>
+                            <button onClick={() => setSelectedRecord(null)}>Cancel</button>
+                          </>
+                        ) : (
+                          intervention.status
+                        )}</td>
                       <td id="crud-btns">
                         <button onClick={() => handleEdit(intervention)}>Change status</button>
                       </td>
@@ -174,25 +190,6 @@ const Intervention = () => {
                   Next
                 </button>
               </div>
-              {selectedRecord && (
-                <>
-                  <div>
-                    <h2>Edit Redflag Status</h2>
-                    <label>Status:</label>
-                    <select
-                      value={editedStatus}
-                      onChange={(e) => setEditedStatus(e.target.value)}
-                    >
-                      <option></option>
-                      <option value="under investigation">Under Investigation</option>
-                      <option value="resolved">Resolved</option>
-                      <option value="rejected">Rejected</option>
-                    </select>
-                    <button onClick={handleSaveEdit}>Save Changes</button>
-                    <button onClick={() => setSelectedRecord(null)}>Cancel</button>
-                  </div>
-                </>
-              )}
             </>
           )}
         </div>
