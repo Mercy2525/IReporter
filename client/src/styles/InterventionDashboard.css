@@ -1,6 +1,6 @@
 #intervention-div {
     margin-left: 17%;
-    background-color: #f5efef;
+    background-color: white;
 }
 .header {
     display: flex;
@@ -8,28 +8,42 @@
     align-items: center;
     padding: 20px;
   }
-  .modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1000; 
-  }
-  
-  .modal {
-    background-color: #fff;
-    margin-top: -28%;
-    margin-left: auto;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    z-index: 1001;
-  }
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+
+.modal {
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  width: 15%;
+  text-align: center;
+}
+
+.modal button {
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  color: red;
+  font-weight: bolder;
+  float: right;
+  margin-top: -15%;
+  margin-bottom: 15%;
+  font-size: 1.3em;
+}
+
+.modal p {
+  font-size: 18px;
+  margin: 10px 0;
+}
+
   .header input {
     width: 300px;
     border-radius: 15px;
@@ -93,16 +107,28 @@
   #crud-btns {
     display: flex;
     flex-direction: column;
+    height: 8vh;
     gap: 20px;
+    background-color: #244873;
+    cursor: pointer;
   }
   #crud-btns button {
     width: 100px;
     color: black;
+    padding: 1% 0;
+  }
+  #crud-btns:hover {
+    color: white;
   }
   #crud-btns button:hover {
     color: white;
   }
-
+  .edit-status {
+    background-color: #244873;
+    width: 40%;
+    margin-top: 20%;
+    margin-right: 10%;
+  }
   .pagination {
     display: flex;
     justify-content: center;
@@ -131,4 +157,9 @@
     color: #666;
     cursor: not-allowed;
   }
-  
+  .loading {
+    text-align: center;
+    margin-top: 50px;
+    font-size: 1.5em;
+    color: red;
+  }

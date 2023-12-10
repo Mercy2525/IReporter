@@ -155,15 +155,15 @@ const Redflag = () => {
                               <option value="resolved">Resolved</option>
                               <option value="rejected">Rejected</option>
                             </select>
-                            <button onClick={handleSaveEdit}>Save Changes</button>
-                            <button onClick={() => setSelectedRecord(null)}>Cancel</button>
+                            <button className="edit-status" onClick={handleSaveEdit}>Save</button>
+                            <button className="edit-status" onClick={() => setSelectedRecord(null)}>Cancel</button>
                           </>
                         ) : (
                           redflag.status
                         )}
                       </td>
-                      <td id="crud-btns">
-                        <button onClick={() => handleEdit(redflag)}>Change status</button>
+                      <td id="crud-btns" onClick={() => handleEdit(redflag)}>
+                        <button>Change status</button>
                       </td>
                     </tr>
                   ))}

@@ -1,7 +1,11 @@
+body {
+  overflow-x: hidden; 
+}
 table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
+    overflow-x: hidden;
   }
   
   th, td {
@@ -11,7 +15,7 @@ table {
   }
   
   th {
-    background-color: #f2f2f2;
+    background-color: white;
   }
   
   tr:hover {
@@ -29,7 +33,7 @@ table {
   
 #users-div {
   display: flex;
-  overflow: hidden;
+  overflow-x: hidden;
 }
 .container {
   flex-grow: 1;
@@ -41,7 +45,7 @@ table {
   margin-left: 200px; 
   padding: 0 10px 0 20px;
   width: 100%;
-  background-color: #f5efef;
+  background-color: white;
   overflow-x: hidden; 
 }
 .modal-overlay {
@@ -71,6 +75,9 @@ table {
   justify-content: space-between;
   align-items: center;
 }
+.header input {
+  border: 1px solid black;
+}
 
 .search-bar {
   margin-bottom: 20px;
@@ -92,7 +99,7 @@ table {
   text-align: center;
   margin-top: 50px;
   font-size: 1.5em;
-  color: #555;
+  color: red;
 }
 #users-table {
   width: 90%;

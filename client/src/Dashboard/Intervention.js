@@ -115,14 +115,14 @@ const Intervention = () => {
                 <div className="modal-overlay">
                   <div className="modal">
                     <button onClick={handleCloseModal}>X</button>
-                    <h2>admin</h2>
+                    <p>Admin</p>
                     <p>admin@admin</p>
                   </div>
                 </div>
               )}
         <div>
           {loading ? (
-            <p>Loading...</p>
+            <p className="loading">Loading...</p>
           ) : (
             <>
               <h1>Interventions</h1>
@@ -158,14 +158,14 @@ const Intervention = () => {
                               <option value="resolved">Resolved</option>
                               <option value="rejected">Rejected</option>
                             </select>
-                            <button onClick={handleSaveEdit}>Save Changes</button>
-                            <button onClick={() => setSelectedRecord(null)}>Cancel</button>
+                            <button className="edit-status" onClick={handleSaveEdit}>Save</button>
+                            <button className="edit-status" onClick={() => setSelectedRecord(null)}>Cancel</button>
                           </>
                         ) : (
                           intervention.status
                         )}</td>
-                      <td id="crud-btns">
-                        <button onClick={() => handleEdit(intervention)}>Change status</button>
+                      <td id="crud-btns" onClick={() => handleEdit(intervention)}>
+                        <button>Change status</button>
                       </td>
                     </tr>
                   ))}

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Menu from './Menu';
-import '../styles/Users.css';
+import '../styles/UsersDashboard.css';
 import Admin from '../assets/Admin2.jpg';
 
 const Users = () => {
