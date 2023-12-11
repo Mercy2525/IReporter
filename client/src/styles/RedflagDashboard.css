@@ -90,11 +90,11 @@
 #crud-btns {
   display: flex;
   flex-direction: column;
-  height: 8vh;
-  gap: 20px;
+  padding-top: 10px;
+
   background-color: #244873;
   cursor: pointer;
-  border-radius: 10%;
+  border-radius: 20px;
 }
 #crud-btns button {
   width: 100px;

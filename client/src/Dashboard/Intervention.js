@@ -12,6 +12,7 @@ const Intervention = () => {
   const [editedStatus, setEditedStatus] = useState('');
   const [selectedRecord, setSelectedRecord] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const[refresh, setRefresh]=useState(false)
 
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(5); 
@@ -45,7 +46,7 @@ const Intervention = () => {
         console.error('Error fetching data:', error);
         setLoading(false);
       });
-  }, []);
+  }, [refresh]);
 
   const handleSearch = (event) => {
     setSearchTerm(event.target.value);
@@ -82,6 +83,7 @@ const Intervention = () => {
       if (response.ok) {
         console.log('Record edited successfully:', data);
         setSelectedRecord(null);
+        setRefresh(!refresh)
       } else {
         console.error('Error editing record:', data);
       }
@@ -135,6 +137,8 @@ const Intervention = () => {
                     <th>Image</th>
                     <th>Created At</th>
                     <th>Status</th>
+                    <th></th>
+                    
                   </tr>
                 </thead>
                 <tbody>
@@ -165,7 +169,7 @@ const Intervention = () => {
                           intervention.status
                         )}</td>
                       <td id="crud-btns" onClick={() => handleEdit(intervention)}>
-                        <button>Change status</button>
+                        <button >Change status</button>
                       </td>
                     </tr>
                   ))}

@@ -10,6 +10,7 @@ const Redflag = () => {
   const [editedStatus, setEditedStatus] = useState('');
   const [selectedRecord, setSelectedRecord] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const[refresh, setRefresh]=useState(false)
 
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(5);
@@ -40,7 +41,7 @@ const Redflag = () => {
         console.error('Error fetching data:', error);
         setLoading(false);
       });
-  }, []);
+  }, [refresh]);
 
   const handleSearch = (event) => {
     setSearchTerm(event.target.value);
@@ -77,6 +78,7 @@ const Redflag = () => {
       if (response.ok) {
         console.log('Record edited successfully:', data);
         setSelectedRecord(null);
+        setRefresh(!refresh)
       } else {
         console.error('Error editing record:', data);
       }
@@ -131,6 +133,7 @@ const Redflag = () => {
                     <th>Image</th>
                     <th>Created At</th>
                     <th>Status</th>
+                    <th></th>
                   </tr>
                 </thead>
                 <tbody>

@@ -7,7 +7,7 @@ const NotFound = () => {
         <div className="text-center">
             <h2 className="p-3 text-red-600">Error 404</h2>
             <p className="p-4 text-2xl text-red-700 ">Page Not Found</p>
-            <button onClick={()=>navigate("/")}> Back Home </button>
+            <button className="bg-color-blue2" onClick={()=>navigate("/")}> Back Home </button>
         </div>
      );
 }
