@@ -146,8 +146,8 @@ const Intervention = () => {
                       <td>
                         <img id="table-img" src={intervention.image} alt={intervention.title} />
                       </td>
-                      <td>{intervention.created_at}</td>
-                      <td>{selectedRecord && selectedRecord.id === intervention.id ? (
+                      <td className="table-date">{intervention.created_at}</td>
+                      <td className="table-date">{selectedRecord && selectedRecord.id === intervention.id ? (
                           <>
                             <select
                               value={editedStatus}

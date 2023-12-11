@@ -140,10 +140,10 @@ const Redflag = () => {
                       <td>{redflag.title}</td>
                       <td>{redflag.description}</td>
                       <td>
-                        <img src={redflag.image} alt={redflag.title} />
+                        <img id="table-img" src={redflag.image} alt={redflag.title} />
                       </td>
-                      <td>{redflag.created_at}</td>
-                      <td>
+                      <td className="table-date">{redflag.created_at}</td>
+                      <td className="table-date">
                         {selectedRecord && selectedRecord.id === redflag.id ? (
                           <>
                             <select
