@@ -3,6 +3,8 @@ import Menu from './Menu';
 import '../styles/InterventionDashboard.css';
 import Admin from '../assets/Admin2.jpg';
 
+
+
 const Intervention = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [loading, setLoading] = useState(true);
@@ -10,6 +12,21 @@ const Intervention = () => {
   const [editedStatus, setEditedStatus] = useState('');
   const [selectedRecord, setSelectedRecord] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(5); 
+
+  const filteredInterventions = intervention.filter((intervention) =>
+  intervention.title.toLowerCase().includes(searchTerm.toLowerCase())
+);
+
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = filteredInterventions.slice(indexOfFirstItem, indexOfLastItem);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+
 
   useEffect(() => {
     const apiUrl = `/intervention`;
@@ -32,6 +49,7 @@ const Intervention = () => {
 
   const handleSearch = (event) => {
     setSearchTerm(event.target.value);
+    setCurrentPage(1);
   };
 
   const handleEdit = async (record) => {
@@ -73,9 +91,7 @@ const Intervention = () => {
   };
 
   
-  const filteredInterventions = intervention.filter((intervention) =>
-    intervention.title.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+
 
   return (
     <div id="intervention-div">
@@ -99,14 +115,14 @@ const Intervention = () => {
                 <div className="modal-overlay">
                   <div className="modal">
                     <button onClick={handleCloseModal}>X</button>
-                    <h2>admin</h2>
+                    <p>Admin</p>
                     <p>admin@admin</p>
                   </div>
                 </div>
               )}
         <div>
           {loading ? (
-            <p>Loading...</p>
+            <p className="loading">Loading...</p>
           ) : (
             <>
               <h1>Interventions</h1>
@@ -122,7 +138,7 @@ const Intervention = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {filteredInterventions.map((intervention) => (
+                  {currentItems.map((intervention) => (
                     <tr key={intervention.id}>
                       <td>{intervention.id}</td>
                       <td>{intervention.title}</td>
@@ -130,34 +146,50 @@ const Intervention = () => {
                       <td>
                         <img id="table-img" src={intervention.image} alt={intervention.title} />
                       </td>
-                      <td>{intervention.created_at}</td>
-                      <td>{intervention.status}</td>
-                      <td id="crud-btns">
-                        <button onClick={() => handleEdit(intervention)}>Change status</button>
+                      <td className="table-date">{intervention.created_at}</td>
+                      <td className="table-date">{selectedRecord && selectedRecord.id === intervention.id ? (
+                          <>
+                            <select
+                              value={editedStatus}
+                              onChange={(e) => setEditedStatus(e.target.value)}
+                            >
+                              <option></option>
+                              <option value="under investigation">Under Investigation</option>
+                              <option value="resolved">Resolved</option>
+                              <option value="rejected">Rejected</option>
+                            </select>
+                            <button className="edit-status" onClick={handleSaveEdit}>Save</button>
+                            <button className="edit-status" onClick={() => setSelectedRecord(null)}>Cancel</button>
+                          </>
+                        ) : (
+                          intervention.status
+                        )}</td>
+                      <td id="crud-btns" onClick={() => handleEdit(intervention)}>
+                        <button>Change status</button>
                       </td>
                     </tr>
                   ))}
                 </tbody>
               </table>
-              {selectedRecord && (
-                <>
-                  <div>
-                    <h2>Edit Redflag Status</h2>
-                    <label>Status:</label>
-                    <select
-                      value={editedStatus}
-                      onChange={(e) => setEditedStatus(e.target.value)}
-                    >
-                      <option></option>
-                      <option value="under investigation">Under Investigation</option>
-                      <option value="resolved">Resolved</option>
-                      <option value="rejected">Rejected</option>
-                    </select>
-                    <button onClick={handleSaveEdit}>Save Changes</button>
-                    <button onClick={() => setSelectedRecord(null)}>Cancel</button>
-                  </div>
-                </>
-              )}
+              <div className="pagination">
+                <button
+                  onClick={() => paginate(currentPage - 1)}
+                  disabled={currentPage === 1}
+                >
+                  Previous
+                </button>
+                {Array.from({ length: Math.ceil(filteredInterventions.length / itemsPerPage) }, (_, i) => (
+                  <button id="page-number" key={i + 1} onClick={() => paginate(i + 1)}>
+                    {i + 1}
+                  </button>
+                ))}
+                <button
+                  onClick={() => paginate(currentPage + 1)}
+                  disabled={currentPage === Math.ceil(filteredInterventions.length / itemsPerPage)}
+                >
+                  Next
+                </button>
+              </div>
             </>
           )}
         </div>
