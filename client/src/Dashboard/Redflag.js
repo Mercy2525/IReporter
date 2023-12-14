@@ -111,7 +111,7 @@ const Redflag = ({admin}) => {
           </div>
           <div onClick={handleOpenModal} className="user-info">
             <img src={Admin} alt="User Avatar" />
-            {admin?(<span>{admin.username.toUpperCase()}</span>): (<span>ADMIN</span>)}
+            {admin?(<span>{admin.username}</span>): (<span>ADMIN</span>)}
           </div>
         </div>
         {isModalOpen && (

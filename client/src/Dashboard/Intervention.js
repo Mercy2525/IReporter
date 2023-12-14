@@ -115,7 +115,7 @@ const Intervention = ({admin}) => {
           </div>
           <div onClick={handleOpenModal} className="user-info">
             <img src={Admin} alt="Admin" />
-            {admin?(<span>{admin.username.toUpperCase()}</span>): (<span>ADMIN</span>)}
+            {admin?(<span>{admin.username}</span>): (<span>ADMIN</span>)}
           </div>
         </div>
         {isModalOpen && (

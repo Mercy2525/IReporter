@@ -11,7 +11,7 @@ function Landing({user, refresh, setRefresh}) {
     const [description,setDescription]=useState('')
     const [image,setImage]=useState()
     const [location,setLocation]=useState('')
-    const [url,setUrl]=useState('')
+    // const [url,setUrl]=useState('')
 
 
 
