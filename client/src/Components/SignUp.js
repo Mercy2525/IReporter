@@ -50,7 +50,7 @@ function SignUp() {
                     }}  
                     validationSchema={errorMessagesSchema}  
                     onSubmit={({confirmPassword, e, ...values})=>{
-                        fetch("https://ireporter-backend.onrender.com/signup_user",{
+                        fetch("/signup_user",{
                             method: "POST",
                             headers: {
                                 "Content-Type": "application/json",

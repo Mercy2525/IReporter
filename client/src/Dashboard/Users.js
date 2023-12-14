@@ -3,7 +3,7 @@ import Menu from './Menu';
 import '../styles/UsersDashboard.css';
 import Admin from '../assets/Admin2.jpg';
 
-const Users = () => {
+const Users = ({admin}) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [loading, setLoading] = useState(true);
   const [users, setUsers] = useState([]);
@@ -60,7 +60,8 @@ const Users = () => {
           </div>
           <div onClick={handleOpenModal} className="user-info">
             <img src={Admin} alt="User Avatar" />
-            <span>ADMIN</span>
+            {admin?(<span>{admin.username.toUpperCase()}</span>): (<span>ADMIN</span>)}
+            
           </div>
         </div>
         {isModalOpen && (
@@ -84,7 +85,7 @@ const Users = () => {
                     <th>ID</th>
                     <th>Full Name</th>
                     <th>Username</th>
-                    <th>Email</th>
+                    {/* <th>Email</th> */}
                   </tr>
                 </thead>
                 <tbody>
@@ -93,7 +94,7 @@ const Users = () => {
                       <td>{user.id}</td>
                       <td>{user.full_name}</td>
                       <td>{user.username}</td>
-                      <td>{user.email}</td>
+                      {/* <td>{user.email}</td> */}
                     </tr>
                   ))}
                 </tbody>

@@ -2,10 +2,11 @@ import React, { useState, useEffect } from 'react';
 import Menu from './Menu';
 import '../styles/InterventionDashboard.css';
 import Admin from '../assets/Admin2.jpg';
+import { useSnackbar } from 'notistack';
 
 
 
-const Intervention = () => {
+const Intervention = ({admin}) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [loading, setLoading] = useState(true);
   const [intervention, setIntervention] = useState([]);
@@ -13,6 +14,7 @@ const Intervention = () => {
   const [selectedRecord, setSelectedRecord] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const[refresh, setRefresh]=useState(false)
+  const { enqueueSnackbar } = useSnackbar();
 
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(5); 
@@ -82,12 +84,15 @@ const Intervention = () => {
 
       if (response.ok) {
         console.log('Record edited successfully:', data);
+        enqueueSnackbar('Record Status updated successfully', {variant: 'info'})
         setSelectedRecord(null);
         setRefresh(!refresh)
       } else {
         console.error('Error editing record:', data);
+        enqueueSnackbar('Error editing record', {variant: 'error'})
       }
     } catch (error) {
+      enqueueSnackbar('Error editing record', {variant: 'error'})
       console.error('Error editing record:', error);
     }
   };
@@ -110,15 +115,16 @@ const Intervention = () => {
           </div>
           <div onClick={handleOpenModal} className="user-info">
             <img src={Admin} alt="Admin" />
-            <span>ADMIN</span>
+            {admin?(<span>{admin.username.toUpperCase()}</span>): (<span>ADMIN</span>)}
           </div>
         </div>
         {isModalOpen && (
                 <div className="modal-overlay">
                   <div className="modal">
-                    <button onClick={handleCloseModal}>X</button>
+                  <button onClick={handleCloseModal}>X</button>
                     <p>Admin</p>
                     <p>admin@admin</p>
+                   
                   </div>
                 </div>
               )}
@@ -135,7 +141,7 @@ const Intervention = () => {
                     <th>Title</th>
                     <th>Description</th>
                     <th>Image</th>
-                    <th>Created At</th>
+                    <th>Location</th>
                     <th>Status</th>
                     <th></th>
                     
@@ -148,9 +154,9 @@ const Intervention = () => {
                       <td>{intervention.title}</td>
                       <td>{intervention.description}</td>
                       <td>
-                        <img id="table-img" src={intervention.image} alt={intervention.title} />
+                        <img id="table-img1" src={intervention.image} alt={intervention.title} />
                       </td>
-                      <td className="table-date">{intervention.created_at}</td>
+                      <td className="table-date">{intervention.location}</td>
                       <td className="table-date">{selectedRecord && selectedRecord.id === intervention.id ? (
                           <>
                             <select
