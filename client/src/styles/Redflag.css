@@ -23,7 +23,6 @@ form {
     margin-bottom: 15px;
   }
   button {
-    background-color: #244873;
     color: white;
     padding: 10px;
     border: none;
@@ -35,7 +34,7 @@ form {
     background-size: cover;
   }
   button:hover {
-    background-color: #244873;
+  
     color: white
   }
   .form-div {

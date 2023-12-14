@@ -1,15 +1,35 @@
 import React, { useState, useEffect } from 'react';
 import Menu from './Menu';
 import '../styles/InterventionDashboard.css';
-import Admin from'../assets/Admin2.jpg';
+import Admin from '../assets/Admin2.jpg';
+import { useSnackbar } from 'notistack';
 
-const Intervention = () => {
+
+
+const Intervention = ({admin}) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [loading, setLoading] = useState(true);
   const [intervention, setIntervention] = useState([]);
-
   const [editedStatus, setEditedStatus] = useState('');
   const [selectedRecord, setSelectedRecord] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const[refresh, setRefresh]=useState(false)
+  const { enqueueSnackbar } = useSnackbar();
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(5); 
+
+  const filteredInterventions = intervention.filter((intervention) =>
+  intervention.title.toLowerCase().includes(searchTerm.toLowerCase())
+);
+
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = filteredInterventions.slice(indexOfFirstItem, indexOfLastItem);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+
 
   useEffect(() => {
     const apiUrl = `/intervention`;
@@ -28,15 +48,24 @@ const Intervention = () => {
         console.error('Error fetching data:', error);
         setLoading(false);
       });
-  }, []);
+  }, [refresh]);
 
   const handleSearch = (event) => {
     setSearchTerm(event.target.value);
+    setCurrentPage(1);
   };
 
   const handleEdit = async (record) => {
     setEditedStatus(record.status);
     setSelectedRecord(record);
+  };
+
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
   };
 
   const handleSaveEdit = async () => {
@@ -55,14 +84,20 @@ const Intervention = () => {
 
       if (response.ok) {
         console.log('Record edited successfully:', data);
+        enqueueSnackbar('Record Status updated successfully', {variant: 'info'})
         setSelectedRecord(null);
+        setRefresh(!refresh)
       } else {
         console.error('Error editing record:', data);
+        enqueueSnackbar('Error editing record', {variant: 'error'})
       }
     } catch (error) {
+      enqueueSnackbar('Error editing record', {variant: 'error'})
       console.error('Error editing record:', error);
     }
   };
+
+  
 
 
   return (
@@ -78,14 +113,24 @@ const Intervention = () => {
               onChange={handleSearch}
             />
           </div>
-          <div className="user-info">
+          <div onClick={handleOpenModal} className="user-info">
             <img src={Admin} alt="Admin" />
-            <span>ADMIN</span>
+            {admin?(<span>{admin.username}</span>): (<span>ADMIN</span>)}
           </div>
         </div>
+        {isModalOpen && (
+                <div className="modal-overlay">
+                  <div className="modal">
+                  <button onClick={handleCloseModal}>X</button>
+                    <p>Admin</p>
+                    <p>admin@admin</p>
+                   
+                  </div>
+                </div>
+              )}
         <div>
           {loading ? (
-            <p>Loading...</p>
+            <p className="loading">Loading...</p>
           ) : (
             <>
               <h1>Interventions</h1>
@@ -96,45 +141,65 @@ const Intervention = () => {
                     <th>Title</th>
                     <th>Description</th>
                     <th>Image</th>
-                    <th>Created At</th>
+                    <th>Location</th>
                     <th>Status</th>
+                    <th></th>
+                    
                   </tr>
                 </thead>
                 <tbody>
-                  {intervention.map((interventions) => (
-                    <tr key={interventions.id}>
-                      <td>{interventions.id}</td>
-                      <td>{interventions.title}</td>
-                      <td>{interventions.description}</td>
-                      <td><img id="table-img" src={interventions.image} /></td>
-                      <td>{interventions.created_at}</td>
-                      <td>{interventions.status}</td>                     
-                      <td id="crud-btns">
-                        <button onClick={() => handleEdit(interventions)}>Change status</button>
+                  {currentItems.map((intervention) => (
+                    <tr key={intervention.id}>
+                      <td>{intervention.id}</td>
+                      <td>{intervention.title}</td>
+                      <td>{intervention.description}</td>
+                      <td>
+                        <img id="table-img1" src={intervention.image} alt={intervention.title} />
+                      </td>
+                      <td className="table-date">{intervention.location}</td>
+                      <td className="table-date">{selectedRecord && selectedRecord.id === intervention.id ? (
+                          <>
+                            <select
+                              value={editedStatus}
+                              onChange={(e) => setEditedStatus(e.target.value)}
+                            >
+                              <option></option>
+                              <option value="under investigation">Under Investigation</option>
+                              <option value="resolved">Resolved</option>
+                              <option value="rejected">Rejected</option>
+                            </select>
+                            <button className="edit-status" onClick={handleSaveEdit}>Save</button>
+                            <button className="edit-status" onClick={() => setSelectedRecord(null)}>Cancel</button>
+                          </>
+                        ) : (
+                          intervention.status
+                        )}</td>
+                      <td id="crud-btns" onClick={() => handleEdit(intervention)}>
+                        <button >Change status</button>
                       </td>
                     </tr>
                   ))}
                 </tbody>
               </table>
-              {selectedRecord && (
-                <>
-                  <div>
-                    <h2>Edit Redflag Status</h2>
-                    <label>Status:</label>
-                    <select
-                      value={editedStatus}
-                      onChange={(e) => setEditedStatus(e.target.value)}
-                    >
-                      <option></option>
-                      <option value="under investigation">Under Investigation</option>
-                      <option value="resolved">Resolved</option>
-                      <option value="rejected">Rejected</option>
-                    </select>
-                    <button onClick={handleSaveEdit}>Save Changes</button>
-                    <button onClick={() => setSelectedRecord(null)}>Cancel</button>
-                  </div>
-                </>
-              )}
+              <div className="pagination">
+                <button
+                  onClick={() => paginate(currentPage - 1)}
+                  disabled={currentPage === 1}
+                >
+                  Previous
+                </button>
+                {Array.from({ length: Math.ceil(filteredInterventions.length / itemsPerPage) }, (_, i) => (
+                  <button id="page-number" key={i + 1} onClick={() => paginate(i + 1)}>
+                    {i + 1}
+                  </button>
+                ))}
+                <button
+                  onClick={() => paginate(currentPage + 1)}
+                  disabled={currentPage === Math.ceil(filteredInterventions.length / itemsPerPage)}
+                >
+                  Next
+                </button>
+              </div>
             </>
           )}
         </div>

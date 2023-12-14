@@ -1,15 +1,30 @@
 import React, { useState, useEffect } from 'react';
 import Menu from './Menu';
 import '../styles/RedflagDashboard.css';
-import Admin from'../assets/Admin2.jpg';
+import Admin from '../assets/Admin2.jpg';
+import { useSnackbar } from 'notistack';
 
-const Redflag = () => {
+const Redflag = ({admin}) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [loading, setLoading] = useState(true);
   const [redflags, setRedflags] = useState([]);
-
   const [editedStatus, setEditedStatus] = useState('');
   const [selectedRecord, setSelectedRecord] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const[refresh, setRefresh]=useState(false)
+  const { enqueueSnackbar } = useSnackbar();
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(5);
+
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const filteredRedflagsItems = redflags.filter((redflag) =>
+    redflag.title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+  const currentRedflags = filteredRedflagsItems.slice(indexOfFirstItem, indexOfLastItem);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   useEffect(() => {
     const apiUrl = `/redflags`;
@@ -28,15 +43,24 @@ const Redflag = () => {
         console.error('Error fetching data:', error);
         setLoading(false);
       });
-  }, []);
+  }, [refresh]);
 
   const handleSearch = (event) => {
     setSearchTerm(event.target.value);
+    setCurrentPage(1);
   };
 
-  const handleEdit = async (record) => {
+  const handleEdit = (record) => {
     setEditedStatus(record.status);
     setSelectedRecord(record);
+  };
+
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
   };
 
   const handleSaveEdit = async () => {
@@ -55,15 +79,22 @@ const Redflag = () => {
 
       if (response.ok) {
         console.log('Record edited successfully:', data);
+        enqueueSnackbar('Record Status updated successfully', {variant: 'info'})
         setSelectedRecord(null);
+        setRefresh(!refresh)
       } else {
         console.error('Error editing record:', data);
+        enqueueSnackbar('Error editing record', {variant: 'error'})
       }
     } catch (error) {
       console.error('Error editing record:', error);
+      enqueueSnackbar('Error editing record', {variant: 'error'})
     }
   };
 
+  const filteredRedflags = redflags.filter((redflag) =>
+    redflag.title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   return (
     <div id="redflag-div">
@@ -78,11 +109,20 @@ const Redflag = () => {
               onChange={handleSearch}
             />
           </div>
-          <div className="user-info">
+          <div onClick={handleOpenModal} className="user-info">
             <img src={Admin} alt="User Avatar" />
-            <span>ADMIN</span>
+            {admin?(<span>{admin.username}</span>): (<span>ADMIN</span>)}
           </div>
         </div>
+        {isModalOpen && (
+          <div className="modal-overlay">
+            <div className="modal">
+              <button onClick={handleCloseModal}>X</button>
+              <h2>admin</h2>
+              <p>admin@admin</p>
+            </div>
+          </div>
+        )}
         <div>
           {loading ? (
             <p className="loading">Loading...</p>
@@ -96,45 +136,73 @@ const Redflag = () => {
                     <th>Title</th>
                     <th>Description</th>
                     <th>Image</th>
-                    <th>Created At</th>
+                    <th>Location</th>
                     <th>Status</th>
+                    <th></th>
                   </tr>
                 </thead>
                 <tbody>
-                  {redflags.map((redflag) => (
+                  {currentRedflags.map((redflag) => (
                     <tr key={redflag.id}>
                       <td>{redflag.id}</td>
                       <td>{redflag.title}</td>
                       <td>{redflag.description}</td>
-                      <td><img src={redflag.image} /></td>
-                      <td>{redflag.created_at}</td>
-                      <td>{redflag.status}</td>                
-                      <td id="crud-btns">
-                        <button onClick={() => handleEdit(redflag)}>Change status</button>
+                      <td>
+                        <img id="table-img" src={redflag.image} alt={redflag.title} />
+                      </td>
+                      <td className="table-date">{redflag.location}</td>
+                      <td className="table-date">
+                        {selectedRecord && selectedRecord.id === redflag.id ? (
+                          <>
+                            <select
+                              value={editedStatus}
+                              onChange={(e) => setEditedStatus(e.target.value)}
+                            >
+                              <option></option>
+                              <option value="under investigation">Under Investigation</option>
+                              <option value="resolved">Resolved</option>
+                              <option value="rejected">Rejected</option>
+                            </select>
+                            <button className="edit-status" onClick={handleSaveEdit}>Save</button>
+                            <button className="edit-status" onClick={() => setSelectedRecord(null)}>Cancel</button>
+                          </>
+                        ) : (
+                          redflag.status
+                        )}
+                      </td>
+                      <td id="crud-btns" onClick={() => handleEdit(redflag)}>
+                        <button>Change status</button>
                       </td>
                     </tr>
                   ))}
                 </tbody>
               </table>
-              {selectedRecord && (
-                <>
-                  <div>
-                    <h2>Edit Redflag Record</h2>
-                    <label>Status:</label>
-                    <select
-                      value={editedStatus}
-                      onChange={(e) => setEditedStatus(e.target.value)}
+              <div className="pagination">
+                <button onClick={() => paginate(currentPage - 1)} disabled={currentPage === 1}>
+                  Previous
+                </button>
+                {Array.from(
+                  { length: Math.ceil(filteredRedflags.length / itemsPerPage) },
+                  (_, i) => (
+                    <button
+                      id="page-number"
+                      key={i + 1}
+                      onClick={() => paginate(i + 1)}
                     >
-                      <option></option>
-                      <option value="under investigation">Under Investigation</option>
-                      <option value="resolved">Resolved</option>
-                      <option value="rejected">Rejected</option>
-                    </select>
-                    <button onClick={handleSaveEdit}>Save Changes</button>
-                    <button onClick={() => setSelectedRecord(null)}>Cancel</button>
-                  </div>
-                </>
-              )}
+                      {i + 1}
+                    </button>
+                  )
+                )}
+                <button
+                  onClick={() => paginate(currentPage + 1)}
+                  disabled={
+                    currentPage ===
+                    Math.ceil(filteredRedflags.length / itemsPerPage)
+                  }
+                >
+                  Next
+                </button>
+              </div>
             </>
           )}
         </div>

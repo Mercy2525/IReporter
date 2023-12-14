@@ -15,17 +15,13 @@ import NotFound from '../pages/NotFound.js'
 import Landing from './Landing.js';
 
 
-
-
 function App() {
 
   const [user, setUser] = useState({});
   const [admin, setAdmin] = useState({});
   const[refresh, setRefresh]=useState(false)
-
  
   //user-session
-  //
   useEffect(() => {
     fetch("/session_user")
     .then(response=>{
@@ -37,7 +33,7 @@ function App() {
     .catch(error => console.log(error));
   }, [refresh]); 
 
-  // console.log(redflags)
+
 
   //admin session
   useEffect(() => {
@@ -58,28 +54,23 @@ function App() {
 
       <Routes>
 
-      <Route element={<Navbar admin={admin} setAdmin={setAdmin} setUser={setUser} user={user}/>}>
-          <Route element={<Home/>} path="/"/>
-          <Route element={<Home/>} path="/home"/>
-          <Route path="/redflag" element={<Redflag user={user}/>} />
-          <Route path="/signup" element={<SignUp />} />
-          <Route path="/login" element={<Login setUser={setUser}  />} />
-          <Route path="/adminLogin" element={<AdminLogin setAdmin={setAdmin}/>}/>
-          <Route path='/user/redflags' element={<Landing user={user} refresh={refresh} setRefresh={setRefresh}/>}/>
-          <Route path='/user/intervention' element={<UserIntervention user={user} refresh={refresh} setRefresh={setRefresh}/>}/>
-      </Route>
-
-          <Route path='*' element={<NotFound/>}/>
-          <Route path="/admin/dashboard" element={<Dashboard/>}/>
-          <Route path="/admin/users" element={<Users/>}/>
-          <Route path="/admin/redflags" element={<Redflags/>}/>
-          <Route path="/admin/interventions" element={<Interventions/>}/>
+        <Route element={<Navbar admin={admin} setAdmin={setAdmin} setUser={setUser} user={user}/>}>
+            <Route element={<Home/>} path="/"/>
+            <Route element={<Home/>} path="/home"/>
+            <Route path="/redflag" element={<Redflag user={user}/>} />
+            <Route path="/signup" element={<SignUp />} />
+            <Route path="/login" element={<Login setUser={setUser}  />} />
+            <Route path="/adminLogin" element={<AdminLogin setAdmin={setAdmin}/>}/>
+            <Route path='/user/redflags' element={<Landing user={user} refresh={refresh} setRefresh={setRefresh}/>}/>
+            <Route path='/user/intervention' element={<UserIntervention user={user} refresh={refresh} setRefresh={setRefresh}/>}/>
+        </Route>
+            <Route path='*' element={<NotFound/>}/>
+            <Route path="/admin/dashboard" element={<Dashboard/>}/>
+            <Route path="/admin/users" element={<Users admin={admin}/>}/>
+            <Route path="/admin/redflags" element={<Redflags admin={admin}/>}/>
+            <Route path="/admin/interventions" element={<Interventions admin={admin}/>}/>
       </Routes>
-
-
-      
     </div>
   );
 }
-
 export default App;
