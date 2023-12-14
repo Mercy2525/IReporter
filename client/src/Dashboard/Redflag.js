@@ -2,14 +2,17 @@ import React, { useState, useEffect } from 'react';
 import Menu from './Menu';
 import '../styles/RedflagDashboard.css';
 import Admin from '../assets/Admin2.jpg';
+import { useSnackbar } from 'notistack';
 
-const Redflag = () => {
+const Redflag = ({admin}) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [loading, setLoading] = useState(true);
   const [redflags, setRedflags] = useState([]);
   const [editedStatus, setEditedStatus] = useState('');
   const [selectedRecord, setSelectedRecord] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const[refresh, setRefresh]=useState(false)
+  const { enqueueSnackbar } = useSnackbar();
 
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(5);
@@ -40,7 +43,7 @@ const Redflag = () => {
         console.error('Error fetching data:', error);
         setLoading(false);
       });
-  }, []);
+  }, [refresh]);
 
   const handleSearch = (event) => {
     setSearchTerm(event.target.value);
@@ -76,12 +79,16 @@ const Redflag = () => {
 
       if (response.ok) {
         console.log('Record edited successfully:', data);
+        enqueueSnackbar('Record Status updated successfully', {variant: 'info'})
         setSelectedRecord(null);
+        setRefresh(!refresh)
       } else {
         console.error('Error editing record:', data);
+        enqueueSnackbar('Error editing record', {variant: 'error'})
       }
     } catch (error) {
       console.error('Error editing record:', error);
+      enqueueSnackbar('Error editing record', {variant: 'error'})
     }
   };
 
@@ -104,7 +111,7 @@ const Redflag = () => {
           </div>
           <div onClick={handleOpenModal} className="user-info">
             <img src={Admin} alt="User Avatar" />
-            <span>ADMIN</span>
+            {admin?(<span>{admin.username}</span>): (<span>ADMIN</span>)}
           </div>
         </div>
         {isModalOpen && (
@@ -129,8 +136,9 @@ const Redflag = () => {
                     <th>Title</th>
                     <th>Description</th>
                     <th>Image</th>
-                    <th>Created At</th>
+                    <th>Location</th>
                     <th>Status</th>
+                    <th></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -142,7 +150,7 @@ const Redflag = () => {
                       <td>
                         <img id="table-img" src={redflag.image} alt={redflag.title} />
                       </td>
-                      <td className="table-date">{redflag.created_at}</td>
+                      <td className="table-date">{redflag.location}</td>
                       <td className="table-date">
                         {selectedRecord && selectedRecord.id === redflag.id ? (
                           <>

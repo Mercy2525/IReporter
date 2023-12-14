@@ -33,6 +33,7 @@ table {
   
 #users-div {
   display: flex;
+  margin-left: 15%;
   overflow-x: hidden;
 }
 .container {
@@ -62,13 +63,11 @@ table {
 }
 
 .modal {
-  background-color: #fff;
-  margin-top: -28%;
+  margin-right: 2px;
+  margin-top: -35%;
   margin-left: auto;
-  padding: 20px;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  z-index: 1001;
 }
 .header {
   display: flex;

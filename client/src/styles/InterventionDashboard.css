@@ -19,8 +19,8 @@
 }
 
 .modal {
-  background: #fff;
-  padding: 20px;
+  display: flex;
+  flex-direction: column;
   border-radius: 8px;
   width: 15%;
   text-align: center;
@@ -29,19 +29,17 @@
 .modal button {
   background: none;
   border: none;
-  font-size: 16px;
+  font-size: 30px;
   cursor: pointer;
   color: red;
-  font-weight: bolder;
-  float: right;
-  margin-top: -15%;
-  margin-bottom: 15%;
+  font-weight: bolder;  
   font-size: 1.3em;
+  margin-left: 220px;
 }
 
 .modal p {
   font-size: 18px;
-  margin: 10px 0;
+  margin: 5px;
 }
 
   .header input {
@@ -93,9 +91,9 @@
     padding: 8px;
     text-align: left;
   }
-  #table-img {
-    height: 200px;
-    width: 300px;
+  #table-img1 {
+    height: 150px;
+    width: 600px;
   }
   #intervention-table th {
     background-color: #f2f2f2;
