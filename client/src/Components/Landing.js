@@ -57,48 +57,56 @@ function Landing({user, refresh, setRefresh}) {
     }
  
     const uploadImage = () => {
-        const data = new FormData()
-        data.append("file", image)
-        data.append("upload_preset", "ireporter")
-        data.append("cloud_name","mercy")
-        fetch("https://api.cloudinary.com/v1_1/dtzodxlmb/image/upload",{
-        method:"post",
-        body: data
+        const data = new FormData();
+        data.append("file", image);
+        data.append("upload_preset", "ireporter");
+        data.append("cloud_name", "mercy");
+    
+        fetch("https://api.cloudinary.com/v1_1/dtzodxlmb/image/upload", {
+            method: "post",
+            body: data,
         })
-        .then(resp => resp.json())
-        .then(data => {
-        setUrl(data.url)
-            fetch('/redflags',{
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    title:title,
-                    description: description,
-                    image: url,
-                    location:location,
-                    status:'pending',
-                    user_id:user.id
-                }),
-            })
-            .then((res)=>{
-                if (res.status === 201){
-                    enqueueSnackbar('Record posted!', { variant: 'success' })
-                    return res.json()
-                } else {
-                    return res.json().then((data) => {
-                        enqueueSnackbar('Record post failed', { variant: 'error' });
-                        console.log(data); 
-                    });
-                }
-            })
-            .then(()=>setRefresh(!refresh))
-            .catch(e=>console.log(e))
+        .then((resp) => resp.json())
+        .then((data) => {
+            // Check if Cloudinary upload was successful and URL is obtained
+            if (data.url) {
+                setUrl(data.url);
+    
+                fetch('/redflags', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        title: title,
+                        description: description,
+                        image: data.url, // Use the obtained URL from Cloudinary
+                        location: location,
+                        status: 'pending',
+                        user_id: user.id,
+                    }),
+                })
+                .then((res) => {
+                    if (res.status === 201) {
+                        enqueueSnackbar('Record posted!', { variant: 'success' });
+                        return res.json();
+                    } else {
+                        return res.json().then((data) => {
+                            enqueueSnackbar('Record post failed', { variant: 'error' });
+                            console.log(data);
+                        });
+                    }
+                })
+                .then(() => setRefresh(!refresh))
+                .catch((e) => console.log(e));
+            } else {
+                
+                enqueueSnackbar('Image upload failed', { variant: 'error' });
+            }
         })
-
-        .catch(err => console.log(err))    
-        }
+        .catch((err) => console.log(err));
+    }
+    
 
 
         //update Records
