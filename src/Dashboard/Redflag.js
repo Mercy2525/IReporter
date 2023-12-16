@@ -27,7 +27,7 @@ const Redflag = ({admin}) => {
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   useEffect(() => {
-    const apiUrl = `/redflags`;
+    const apiUrl = `https://ireporter-backend.onrender.com/redflags`;
     fetch(apiUrl)
       .then((response) => {
         if (!response.ok) {
@@ -65,7 +65,7 @@ const Redflag = ({admin}) => {
 
   const handleSaveEdit = async () => {
     try {
-      const response = await fetch(`/redflags/${selectedRecord.id}`, {
+      const response = await fetch(`https://ireporter-backend.onrender.com/redflags/${selectedRecord.id}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
@@ -118,8 +118,16 @@ const Redflag = ({admin}) => {
           <div className="modal-overlay">
             <div className="modal">
               <button onClick={handleCloseModal}>X</button>
-              <h2>admin</h2>
-              <p>admin@admin</p>
+              {admin?
+                    (<>
+                    <h2>Fullname: {admin.full_name}</h2>
+                    <p>Username: {admin.username}</p>
+                    </>
+                    ) : (
+                    <>
+                      <h2>admin</h2>
+                      <p>admin@admin</p>
+                    </>)}
             </div>
           </div>
         )}

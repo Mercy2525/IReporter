@@ -11,7 +11,6 @@ function Landing({user, refresh, setRefresh}) {
     const [description,setDescription]=useState('')
     const [image,setImage]=useState()
     const [location,setLocation]=useState('')
-    // const [url,setUrl]=useState('')
 
 
 
@@ -26,7 +25,7 @@ function Landing({user, refresh, setRefresh}) {
                 <>
                     <Button  className={'hover:bg-transparent hover:text-black'} content={'Confirm'} onClick={() => { 
                         closeSnackbar(key);
-                        fetch(`/intervention/${id}`, {
+                        fetch(`https://ireporter-backend.onrender.com/intervention/${id}`, {
                             method: "DELETE",
                             headers: {
                                 "Content-type": "application/json",
@@ -72,7 +71,7 @@ function Landing({user, refresh, setRefresh}) {
             if (data.url) {
                 // setUrl(data.url);
     
-                fetch('/intervention', {
+                fetch('https://ireporter-backend.onrender.com/intervention', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -127,7 +126,7 @@ function Landing({user, refresh, setRefresh}) {
 
     function updateRecords(intervention){
 
-        fetch(`/intervention/${intervention.id}`,{
+        fetch(`https://ireporter-backend.onrender.com/intervention/${intervention.id}`,{
         method:"PATCH",
         headers:{"Content-Type":"application/json"},
         body:JSON.stringify({
