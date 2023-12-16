@@ -35,7 +35,7 @@ function Login({setUser}) {
 
           onSubmit={(values, e) => {
 
-            fetch('/login_user', {
+            fetch('https://ireporter-backend.onrender.com/login_user', {
               method: "POST",
               headers: {
                 'Content-Type': 'application/json',
@@ -44,7 +44,7 @@ function Login({setUser}) {
             })
               .then((res) => {
                 if (res.status === 201) {
-                  res.json()
+                  return res.json()
                   .then(enqueueSnackbar('Log in successful!', { variant: 'success' }))
                   .then(navigate('/user/redflags'))
                   .then(values=>handleLogIn(values))

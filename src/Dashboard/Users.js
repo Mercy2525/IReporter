@@ -10,7 +10,7 @@ const Users = ({admin}) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
-    const apiUrl = `/users`;
+    const apiUrl = `https://ireporter-backend.onrender.com/users`;
     fetch(apiUrl)
       .then((response) => {
         if (!response.ok) {
@@ -60,7 +60,7 @@ const Users = ({admin}) => {
           </div>
           <div onClick={handleOpenModal} className="user-info">
             <img src={Admin} alt="User Avatar" />
-            {admin?(<span>{admin.username.toUpperCase()}</span>): (<span>ADMIN</span>)}
+            {admin?(<span>{admin.username}</span>): (<span>ADMIN</span>)}
             
           </div>
         </div>
@@ -68,8 +68,16 @@ const Users = ({admin}) => {
                 <div className="modal-overlay">
                   <div className="modal">
                     <button onClick={handleCloseModal}>X</button>
-                    <h2>admin</h2>
-                    <p>admin@admin</p>
+                    {admin?
+                    (<>
+                    <h2>Fullname: {admin.full_name}</h2>
+                    <p>Username: {admin.username}</p>
+                    </>
+                    ) : (
+                    <>
+                      <h2>admin</h2>
+                      <p>admin@admin</p>
+                    </>)}                  
                   </div>
                 </div>
               )}

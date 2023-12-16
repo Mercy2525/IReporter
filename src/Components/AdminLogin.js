@@ -6,7 +6,6 @@ import { useNavigate } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
 
 function Login({ setAdmin }) {
-    //
 
   // function handleAdminLogIn(admin){
   //     setAdmin(admin)
@@ -36,7 +35,7 @@ function Login({ setAdmin }) {
           }}
           validationSchema={errorMessagesSchema}
           onSubmit={(values, e) => {
-            fetch('/login_admin', {
+            fetch('https://ireporter-backend.onrender.com/login_admin', {
               method: "POST",
               headers: {
                 'Content-Type': 'application/json',

@@ -11,7 +11,6 @@ function Landing({user, refresh, setRefresh}) {
     const [description,setDescription]=useState('')
     const [image,setImage]=useState()
     const [location,setLocation]=useState('')
-    // const [url,setUrl]=useState('')
 
     
 
@@ -26,7 +25,7 @@ function Landing({user, refresh, setRefresh}) {
                 <>
                     <Button  className={'hover:bg-transparent hover:text-black'} content={'Confirm'} onClick={() => { 
                         closeSnackbar(key);
-                        fetch(`/redflags/${id}`, {
+                        fetch(`https://ireporter-backend.onrender.com/redflags/${id}`, {
                             method: "DELETE",
                             headers: {
                                 "Content-type": "application/json",
@@ -72,7 +71,7 @@ function Landing({user, refresh, setRefresh}) {
             if (data.url) {
                 // setUrl(data.url);
     
-                fetch('/redflags', {
+                fetch('https://ireporter-backend.onrender.com/redflags', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -126,7 +125,7 @@ function Landing({user, refresh, setRefresh}) {
 
     function updateRecords(redflag){
 
-        fetch(`/redflags/${redflag.id}`,{
+        fetch(`https://ireporter-backend.onrender.com/redflags/${redflag.id}`,{
         method:"PATCH",
         headers:{"Content-Type":"application/json"},
         body:JSON.stringify({

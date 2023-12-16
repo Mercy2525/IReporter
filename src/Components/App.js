@@ -23,7 +23,7 @@ function App() {
  
   //user-session
   useEffect(() => {
-    fetch("/session_user")
+    fetch("https://ireporter-backend.onrender.com/session_user")
     .then(response=>{
       if (response.ok){
         return response.json()
@@ -37,7 +37,7 @@ function App() {
 
   //admin session
   useEffect(() => {
-    fetch("/session_admin")
+    fetch("https://ireporter-backend.onrender.com/session_admin")
     .then(response=>{
       if (response.ok){
         return response.json()
