@@ -29,10 +29,12 @@ const Intervention = ({admin}) => {
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
+  console.log(admin);
+
 
 
   useEffect(() => {
-    const apiUrl = `/intervention`;
+    const apiUrl = `https://ireporter-backend.onrender.com/intervention`;
     fetch(apiUrl)
       .then((response) => {
         if (!response.ok) {
@@ -70,7 +72,7 @@ const Intervention = ({admin}) => {
 
   const handleSaveEdit = async () => {
     try {
-      const response = await fetch(`/intervention/${selectedRecord.id}`, {
+      const response = await fetch(`https://ireporter-backend.onrender.com/intervention/${selectedRecord.id}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
@@ -122,8 +124,16 @@ const Intervention = ({admin}) => {
                 <div className="modal-overlay">
                   <div className="modal">
                   <button onClick={handleCloseModal}>X</button>
-                    <p>Admin</p>
-                    <p>admin@admin</p>
+                  {admin?
+                    (<>
+                    <h2>Fullname: {admin.full_name}</h2>
+                    <p>Username: {admin.username}</p>
+                    </>
+                    ) : (
+                    <>
+                      <h2>admin</h2>
+                      <p>admin@admin</p>
+                    </>)}
                    
                   </div>
                 </div>

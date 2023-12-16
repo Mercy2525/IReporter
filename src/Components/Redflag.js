@@ -47,7 +47,7 @@ const RedFlag = ({user}) => {
     e.preventDefault();
 
     const userId = user.id;
-    fetch(`http://127.0.0.1:5555/redflags`, {
+    fetch(`https://ireporter-backend.onrender.com/redflags`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
